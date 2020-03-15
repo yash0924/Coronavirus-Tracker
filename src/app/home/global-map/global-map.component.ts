@@ -2,6 +2,7 @@ import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angula
 import { HttpClient } from '@angular/common/http';
 import { Params } from '@angular/router';
 import { Subject } from 'rxjs';
+import { countrydata } from '../../shared/countrydata';
 
 @Component({
   selector: 'app-global-map',
@@ -10,13 +11,15 @@ import { Subject } from 'rxjs';
 })
 export class GlobalMapComponent implements OnInit {
 
+ 
+
   constructor(private http : HttpClient){}
   @ViewChild('mapContainer') gmap: ElementRef;
   map: google.maps.Map;
   lat = 40.730610;
   lng = -73.935242;
 
-markersChanged = new Subject<boolean>();
+markersChanged = new Subject<countrydata[]>();
 
   markers = this.GetMarkerInfo();
 
@@ -28,6 +31,7 @@ markersChanged = new Subject<boolean>();
      
   console.log(data);
 
+  
     data.forEach(element => {
       // console.log(element);
       markersInner.push({
@@ -36,7 +40,7 @@ markersChanged = new Subject<boolean>();
         title: element.Province  });
     });      
   // console.log(markersInner);
-   this.markersChanged.next(true);
+   this.markersChanged.next(data as countrydata[]);
   });
  
   return markersInner;
@@ -80,7 +84,8 @@ markersChanged = new Subject<boolean>();
 
     this.mapInitializer();
 
-    this.markersChanged.subscribe(() => {
+    this.markersChanged.subscribe((data : countrydata[]) => {
+      
       this.mapInitializer();
     });
 
