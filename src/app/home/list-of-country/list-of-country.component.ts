@@ -62,7 +62,7 @@ export class ListOfCountryComponent implements OnInit {
           { headers: { 'Access-Control-Allow-Origin': '*' } })
           .pipe(map(dataUn => {
 
-            const filteredData = {};
+            let  filteredData = {};
             if (dataUn) {
               dataUn.forEach(element => {
                 let newDate = new Date(element['Date']);
@@ -74,8 +74,6 @@ export class ListOfCountryComponent implements OnInit {
                 }
                 else if (newDate >= d3){
                   filteredData = element;
-
-                  
                 }
                 
               });
@@ -83,7 +81,7 @@ export class ListOfCountryComponent implements OnInit {
             return filteredData;
           })).subscribe((data2: countrydata) => {
 
-              if(data2){
+              if(data2 && data2.Cases){
              
                this.TotalConfirmedCases = this.TotalConfirmedCases + data2.Cases;
                this.countriesData.push(data2);

@@ -11,6 +11,8 @@ import {HttpClientModule} from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { ListOfCountryComponent } from './home/list-of-country/list-of-country.component'
 import { GlobalMapComponent } from './home/global-map/global-map.component';
+import { DeathNumberComponent } from './home/death-number/death-number.component';
+import { RecoveredNumberComponent } from './home/recovered-number/recovered-number.component';
 
 
 
@@ -21,7 +23,9 @@ import { GlobalMapComponent } from './home/global-map/global-map.component';
     MenuComponent,
     GlobalMapComponent,
     HomeComponent,
-    ListOfCountryComponent
+    ListOfCountryComponent,
+    DeathNumberComponent,
+    RecoveredNumberComponent
   ],
   imports: [
     BrowserModule,
