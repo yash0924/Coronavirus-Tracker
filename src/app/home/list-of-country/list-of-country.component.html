@@ -1,8 +1,22 @@
 
-  <div class="d-flex flex-column" style="background-color: darkslategrey;"  >
-   
-    <div style="color: white;" *ngFor="let item of  sortBy('Cases');"> 
-      {{item.Cases}} {{item.Country}} 
-    </div>
-   
+
+  <div class="d-flex-column" style="align-content: center;">
+    <div style="text-align: center;">Total Confirmed</div>
+    <h2 style="text-align: center;">{{TotalConfirmedCases | number}}</h2>
   </div>
+  <div class="d-flex-column" style="text-align: justify;">
+    <div style="text-align: center;">Confirmed Cases by</div>
+  </div>
+  <div class="d-flex-column" style="text-align: justify;">
+    <div style="text-align: center;"> Country/Region/Sovereignty </div>
+  </div>
+
+  <hr/>
+    <div  *ngFor="let item of  sortBy('Cases');" > 
+       <div style="border-bottom: 1px solid; height: 2.2rem;">
+      <b>{{item.Cases}}</b> &nbsp; {{item.Country}}
+      
+    </div>
+    </div>
+
+  

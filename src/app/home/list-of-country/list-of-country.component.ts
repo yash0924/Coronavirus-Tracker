@@ -14,6 +14,7 @@ export class ListOfCountryComponent implements OnInit {
 
   countriesData: countrydata[] = [];
   countriesDataUpdated = new Subject<countrydata[]>();
+  TotalConfirmedCases : number = 0;
 
   //@Input() listOfCountries : countrydata[]
   // listOfCountries : countrydata[] =
@@ -46,24 +47,32 @@ export class ListOfCountryComponent implements OnInit {
 
       data.forEach(element => {
 
-        var d = new Date();
-        d.setDate(d.getDate() - 2);
+        
+        var d1 = new Date();
+        d1.setDate(d1.getDate() - 1);
+
 
         var d2 = new Date();
-        d.setDate(d.getDate() - 3);
+        d2.setDate(d2.getDate() - 2);
+
+        var d3 = new Date();
+        d3.setDate(d3.getDate() - 3);
 
         this.http.get("https://api.covid19api.com/total/country/" + element.Slug + "/status/confirmed",
           { headers: { 'Access-Control-Allow-Origin': '*' } })
           .pipe(map(dataUn => {
 
-            const filteredData;
+            const filteredData = {};
             if (dataUn) {
               dataUn.forEach(element => {
                 let newDate = new Date(element['Date']);
-                if (newDate >= d) {
+                if (newDate >= d1) {
                   filteredData = element;
                 }
-                else if (newDate >= d2){
+                else  if (newDate >= d2) {
+                  filteredData = element;
+                }
+                else if (newDate >= d3){
                   filteredData = element;
 
                   
@@ -75,7 +84,9 @@ export class ListOfCountryComponent implements OnInit {
           })).subscribe((data2: countrydata) => {
 
               if(data2){
-              this.countriesData.push(data2);
+             
+               this.TotalConfirmedCases = this.TotalConfirmedCases + data2.Cases;
+               this.countriesData.push(data2);
               }
            
             //  this.countriesDataUpdated.next(data2);
