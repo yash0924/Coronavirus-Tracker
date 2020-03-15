@@ -4,14 +4,33 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
+import { MenuComponent } from './menu/menu.component';
+
+import { AgmCoreModule } from '@agm/core';
+import {HttpClientModule} from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
+import { ListOfCountryComponent } from './home/list-of-country/list-of-country.component'
+import { GlobalMapComponent } from './home/global-map/global-map.component';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    FooterComponent
+    FooterComponent,
+    MenuComponent,
+    GlobalMapComponent,
+    HomeComponent,
+    ListOfCountryComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBcd6J-qAfnmGjqBrC5poqV-8fa7LerguQ',
+      libraries: ['places'] 
+    }),
+
     AppRoutingModule
   ],
   providers: [],
