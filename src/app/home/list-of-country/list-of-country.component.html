@@ -12,7 +12,7 @@
   </div>
 
   <hr/>
-    <div  *ngFor="let item of  countriesData;" > 
+    <div  *ngFor="let item of  sortBy('Cases');" > 
        <div style="border-bottom: 1px solid; height: 2.2rem;">
       <b>{{item.Cases}}</b> &nbsp; {{item.Country}}
       

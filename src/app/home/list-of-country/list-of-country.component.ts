@@ -38,12 +38,10 @@ export class ListOfCountryComponent implements OnInit {
 
   ngOnInit() {
 
-    this.countryNumberService.calculateNumbers("confirmed");
+    this.countryNumberService.calcForC();
 
-    this.countryNumberService.numberDataUpdated.subscribe((data ) => {
+    this.countryNumberService.numberDataUpdatedForC.subscribe((data ) => {
 
-      console.log(data.totalNumer);
-   
         this.TotalConfirmedCases = data.totalNumer;
         this.countriesData = data.totalNumberPerCountry;
     });

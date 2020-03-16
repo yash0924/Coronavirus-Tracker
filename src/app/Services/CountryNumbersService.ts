@@ -11,7 +11,9 @@ import { Subject } from 'rxjs';
 export class CountryNumbersService {
     constructor(private http: HttpClient) { }
 
-    numberDataUpdated = new Subject<{ totalNumer: number, totalNumberPerCountry: countrydata[] }>();
+    numberDataUpdatedForC = new Subject<{ totalNumer: number, totalNumberPerCountry: countrydata[] }>();
+    numberDataUpdatedForR = new Subject<{ totalNumer: number, totalNumberPerCountry: countrydata[] }>();
+    numberDataUpdatedForD = new Subject<{ totalNumer: number, totalNumberPerCountry: countrydata[] }>();
 
     totalConfirmed: number = 0;
     totalNumberConfirmedPerCountry: countrydata[] = [];
@@ -22,8 +24,8 @@ export class CountryNumbersService {
     totalRecovered: number = 0;
     totalNumerRecoveredPerCountry: countrydata[] = [];
 
-    calculateNumbers(status: string) {
-
+    
+    calcForC(){
         this.http.get("http://localhost:43909/countries", { headers: { 'Access-Control-Allow-Origin': '*' } }).subscribe((data: Params) => {
 
             data.forEach(element => {
@@ -41,7 +43,7 @@ export class CountryNumbersService {
                 var d3 = new Date();
                 d3.setDate(d3.getDate() - 3);
 
-                this.http.get("https://api.covid19api.com/total/country/" + element.Slug + "/status/" + status,
+                this.http.get("https://api.covid19api.com/total/country/" + element.Slug + "/status/confirmed",
                     { headers: { 'Access-Control-Allow-Origin': '*' } })
                     .pipe(map(dataUn => {
 
@@ -49,7 +51,7 @@ export class CountryNumbersService {
                         if (dataUn) {
                             dataUn.forEach(element => {
                                 let newDate = new Date(element['Date']);
-                                if (newDate >= d1) {
+                                if (newDate >= d) {
                                     filteredData = element;
                                 }
                                 else if (newDate >= d1) {
@@ -71,42 +73,16 @@ export class CountryNumbersService {
 
                         if (data2 && data2.Cases) {
 
-                            switch (status) {
-                                case "confirmed":
+                         
                                     this.totalConfirmed = this.totalConfirmed + data2.Cases;
                                     this.totalNumberConfirmedPerCountry.push(data2);
 
-                                    break;
-                                case "deaths":
-                                    this.totalRecovered = this.totalRecovered + data2.Cases;
-                                    this.totalNumerRecoveredPerCountry.push(data2);
-                                    break;
-                                case "recovered":
-                                    this.totalNumerDeaths = this.totalConfirmed + data2.Cases;
-                                    this.totalNumerDealthsPerCountry.push(data2);
-                                    break;
-
-                                default:
-                                    break;
-                            }
 
                         }
 
-                        switch (status) {
-                            case "confirmed":
-                                this.numberDataUpdated.next({ totalNumer: this.totalConfirmed, totalNumberPerCountry: this.totalNumberConfirmedPerCountry });
+                     
+                                this.numberDataUpdatedForC.next({ totalNumer: this.totalConfirmed, totalNumberPerCountry: this.totalNumberConfirmedPerCountry });
 
-                                break;
-                            case "deaths":
-                                this.numberDataUpdated.next({ totalNumer: this.totalNumerDeaths, totalNumberPerCountry: this.totalNumerDealthsPerCountry });
-                                break;
-                            case "recovered":
-                                this.numberDataUpdated.next({ totalNumer: this.totalRecovered, totalNumberPerCountry: this.totalNumerRecoveredPerCountry });
-                                break;
-
-                            default:
-                                break;
-                        }
 
 
 
@@ -115,5 +91,138 @@ export class CountryNumbersService {
             });
 
         });
+
     }
+
+    calcForR()
+    {
+        this.http.get("http://localhost:43909/countries", { headers: { 'Access-Control-Allow-Origin': '*' } }).subscribe((data: Params) => {
+
+            data.forEach(element => {
+
+                var d = new Date();
+                d.setDate(d.getDate());
+
+                var d1 = new Date();
+                d1.setDate(d1.getDate() - 1);
+
+
+                var d2 = new Date();
+                d2.setDate(d2.getDate() - 2);
+
+                var d3 = new Date();
+                d3.setDate(d3.getDate() - 3);
+
+                this.http.get("https://api.covid19api.com/total/country/" + element.Slug + "/status/recovered",
+                    { headers: { 'Access-Control-Allow-Origin': '*' } })
+                    .pipe(map(dataUn => {
+
+                        let filteredData = {};
+                        if (dataUn) {
+                            dataUn.forEach(element => {
+                                let newDate = new Date(element['Date']);
+                                if (newDate >= d) {
+                                    filteredData = element;
+                                }
+                                else if (newDate >= d1) {
+                                    filteredData = element;
+                                }
+                                else if (newDate >= d2) {
+                                    filteredData = element;
+                                }
+                                else if (newDate >= d3) {
+                                    filteredData = element;
+                                }
+
+                            });
+                        }
+                        return filteredData;
+                    })).subscribe((data2: countrydata) => {
+
+                        if (data2 && data2.Cases) {
+
+                                    this.totalRecovered = this.totalRecovered + data2.Cases;
+                                    this.totalNumerRecoveredPerCountry.push(data2);
+
+                        }
+
+                        this.numberDataUpdatedForR.next({ totalNumer: this.totalRecovered, totalNumberPerCountry: this.totalNumerRecoveredPerCountry });
+                           
+                    });
+
+            });
+
+        });
+
+    }
+
+    calcForD(){
+        this.http.get("http://localhost:43909/countries", { headers: { 'Access-Control-Allow-Origin': '*' } }).subscribe((data: Params) => {
+
+            data.forEach(element => {
+
+                var d = new Date();
+                d.setDate(d.getDate());
+
+                var d1 = new Date();
+                d1.setDate(d1.getDate() - 1);
+
+
+                var d2 = new Date();
+                d2.setDate(d2.getDate() - 2);
+
+                var d3 = new Date();
+                d3.setDate(d3.getDate() - 3);
+
+                this.http.get("https://api.covid19api.com/total/country/" + element.Slug + "/status/deaths",
+                    { headers: { 'Access-Control-Allow-Origin': '*' } })
+                    .pipe(map(dataUn => {
+
+                        let filteredData = {};
+                        if (dataUn) {
+                            dataUn.forEach(element => {
+                                let newDate = new Date(element['Date']);
+                                if (newDate >= d) {
+                                    filteredData = element;
+                                }
+                                else if (newDate >= d1) {
+                                    filteredData = element;
+                                }
+                                else if (newDate >= d2) {
+                                    filteredData = element;
+                                }
+                                else if (newDate >= d3) {
+                                    filteredData = element;
+                                }
+
+                            });
+                        }
+                        return filteredData;
+                    })).subscribe((data2: countrydata) => {
+
+
+
+                        if (data2 && data2.Cases) {
+
+                         
+                                    this.totalNumerDeaths = this.totalNumerDeaths + data2.Cases;
+                                    this.totalNumerDealthsPerCountry.push(data2);
+                              
+
+                        }
+
+                   
+                                this.numberDataUpdatedForD.next({ totalNumer: this.totalNumerDeaths, totalNumberPerCountry: this.totalNumerDealthsPerCountry });
+                             
+
+
+                    });
+
+            });
+
+        });
+        
+    }
+
+    
 }
