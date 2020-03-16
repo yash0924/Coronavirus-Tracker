@@ -13,6 +13,7 @@ import { ListOfCountryComponent } from './home/list-of-country/list-of-country.c
 import { GlobalMapComponent } from './home/global-map/global-map.component';
 import { DeathNumberComponent } from './home/death-number/death-number.component';
 import { RecoveredNumberComponent } from './home/recovered-number/recovered-number.component';
+import { CountryNumbersService } from './Services/CountryNumbersService';
 
 
 
@@ -37,7 +38,7 @@ import { RecoveredNumberComponent } from './home/recovered-number/recovered-numb
 
     AppRoutingModule
   ],
-  providers: [],
+  providers: [CountryNumbersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
