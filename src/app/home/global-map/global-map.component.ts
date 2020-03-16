@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Params } from '@angular/router';
 import { Subject } from 'rxjs';
 import { countrydata } from '../../shared/countrydata';
+import { CountryNumbersService } from '../../Services/CountryNumbersService';
 
 @Component({
   selector: 'app-global-map',
@@ -13,50 +14,19 @@ export class GlobalMapComponent implements OnInit {
 
  
 
-  constructor(private http : HttpClient){}
+  constructor(private service : CountryNumbersService){}
   @ViewChild('mapContainer') gmap: ElementRef;
   map: google.maps.Map;
-  lat = 40.730610;
-  lng = -73.935242;
+  lat = 40;
+  lng = -4;
 
-markersChanged = new Subject<countrydata[]>();
-
-  markers = this.GetMarkerInfo();
-
-  GetMarkerInfo(){
-    let markersInner = [];
-    this.http.get("http://localhost:43909/all", { headers : {'Access-Control-Allow-Origin' : '*'}}).subscribe((data : Params) => {
-
-      // this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/api/recipebook/Country/us/status/confirmed", { headers : {'Access-Control-Allow-Origin' : '*'}}).subscribe((data : Params) => {
-     
-  console.log(data);
-
-  
-    data.forEach(element => {
-      // console.log(element);
-      markersInner.push({
-        position: new google.maps.LatLng(element.Lat, element.Lon),
-        map: this.map,
-        title: element.Province  });
-    });      
-  // console.log(markersInner);
-   this.markersChanged.next(data as countrydata[]);
-  });
- 
-  return markersInner;
-}
-
-
-
+  markers = this.service.GetMarkerInfo(this.map);
   coordinates = new google.maps.LatLng(this.lat, this.lng);
 
   mapOptions: google.maps.MapOptions = {
     center: this.coordinates,
-    zoom: 3,
+    zoom: 2.1,
   };
-
-  
- 
 
   mapInitializer() {
     this.map = new google.maps.Map(this.gmap.nativeElement, 
@@ -77,36 +47,43 @@ markersChanged = new Subject<countrydata[]>();
 
    }
   
-
-
   ngOnInit() {
-
 
     this.mapInitializer();
 
-    this.markersChanged.subscribe((data : countrydata[]) => {
-      
-      this.mapInitializer();
+    this.service.markersChanged.subscribe((data : countrydata[]) => {
+        this.mapInitializer();
     });
 
 
    }
 
    marker = new google.maps.Marker({
-    position: this.coordinates,
+    //position: this.coordinates,
     map: this.map,
   });
 
   loadAllMarkers(): void {
     this.markers.forEach(markerInfo => {
+
+      console.log(markerInfo);
       //Creating a new marker object
-      const marker = new google.maps.Marker({
-        ...markerInfo
+      const marker = new google.maps.Circle({
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35,
+        map: this.map,
+        center:{lat : +markerInfo.lat, lng : +markerInfo.lon},
+        radius: Math.sqrt(markerInfo.Cases) * 15000
       });
+
+
 
       //creating a new info window with markers info
       const infoWindow = new google.maps.InfoWindow({
-        content: marker.getTitle()
+        content: "Cases : "+ markerInfo.Cases + "/n Province" + markerInfo.Province
       });
 
       //Add click event to open info window on marker
