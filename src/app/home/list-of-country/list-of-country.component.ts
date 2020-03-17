@@ -55,7 +55,7 @@ export class ListOfCountryComponent implements OnInit {
     let mergedData = [];
     let result = [];
     this.countryNumberService.numberDataUpdatedForC.subscribe((data  : updatedServiceData) =>{
-        this.countriesDataC = data.totalCountriesC.sort((a, b) => a['Cases'] < b['Cases'] ? 1 : a['Cases'] === b['Cases'] ? 0 : -1);
+        this.countriesDataC = data.totalCountriesC;
 
 
       });

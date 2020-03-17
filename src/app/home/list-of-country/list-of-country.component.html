@@ -26,8 +26,8 @@
       </tr>
     </thead>
     <tbody>
-      
-        <tr *ngFor="let item of  countriesDataC;">
+      <!-- https://github.com/VadimDez/ngx-order-pipe -->
+        <tr *ngFor="let item of  countriesDataC | orderBy:-Cases">
           <td>
            <div style="color: white;"><a href="{{item.Country + '_info' }}"> {{item.Country}}</a></div>
           </td>

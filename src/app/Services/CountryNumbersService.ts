@@ -67,11 +67,11 @@ export class CountryNumbersService {
         forkJoin([confirmed,recovered, death]).subscribe(
             result  => {
 
-               const arryData0 = result[0] as countrydata[];
+               let arryData0 = result[0] as countrydata[];
                const arryData1 = result[1] as countrydata[];
                const arryData2 = result[2] as countrydata[];
 
-            
+               arryData0 = arryData0;
                
             for (let index = 0; index < arryData0.length; index++) {
                 const element = arryData0[index];
