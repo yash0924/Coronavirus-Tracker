@@ -122,19 +122,20 @@ export class CountryNumbersService {
                 if(match2)
                 {
                     const index = this.totalNumberConfirmedPerCountry.findIndex(r => r.Country === element.Country);
-                    this.totalNumberConfirmedPerCountry[index].td = element.Cases;
-                    this.totalNumerDeaths = this.totalNumerDeaths + element.Cases;
-                }
 
-                   
+                    
+                    this.totalNumberConfirmedPerCountry[index].td = element.Cases;
+                    let combined = +element.Cases + +this.totalNumberConfirmedPerCountry[index].tr;
+                    this.totalNumberConfirmedPerCountry[index].ta =  this.totalNumberConfirmedPerCountry[index].Cases - combined;
+
+                    this.totalNumerDeaths = this.totalNumerDeaths + element.Cases;
+                }                   
                 }
               }
               
               this.numberDataUpdatedForC.next(new updatedServiceData(this.totalConfirmed, this.totalRecovered, this.totalNumerDeaths, this.totalNumberConfirmedPerCountry));
 
-            },null,() => {});
-
-          
+            });
         }
 
     }
