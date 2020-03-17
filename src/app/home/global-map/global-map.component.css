@@ -6,3 +6,11 @@ agm-map {
     height: 600px;
     width: 100%;
    }
+
+   .container {
+     background-color: white;
+    width: 80%;
+    margin: 0 auto;
+  }
+  path {fill: black; stroke: white;}
+  path:hover {fill: gray;}

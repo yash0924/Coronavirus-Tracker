@@ -8,9 +8,16 @@ export class countrydata{
     Cases : number;
     Status: string;
 
+    tc : number;
+    tr : number;
+    td : number;
+
+    ta : number;
+   
+
 
     
-    constructor(country, province, lat, lon, date,cases,status){
+    constructor(country, province, lat, lon, date,cases,status,){
 
         this.Country = country;
         this.Province = province;
@@ -19,6 +26,7 @@ export class countrydata{
         this.Lon = lon;
         this.Cases = cases;
         this.Status = status;
+       
 
     }
 }

@@ -25,7 +25,7 @@ export class GlobalMapComponent implements OnInit {
 
   mapOptions: google.maps.MapOptions = {
     center: this.coordinates,
-    zoom: 2.1,
+    zoom: 3,
   };
 
   mapInitializer() {
@@ -66,7 +66,7 @@ export class GlobalMapComponent implements OnInit {
   loadAllMarkers(): void {
     this.markers.forEach(markerInfo => {
 
-      console.log(markerInfo);
+      
       //Creating a new marker object
       const marker = new google.maps.Circle({
         strokeColor: '#FF0000',
@@ -76,7 +76,7 @@ export class GlobalMapComponent implements OnInit {
         fillOpacity: 0.35,
         map: this.map,
         center:{lat : +markerInfo.lat, lng : +markerInfo.lon},
-        radius: Math.sqrt(markerInfo.Cases) * 15000
+        radius: Math.sqrt(markerInfo.Cases) * 5000
       });
 
 

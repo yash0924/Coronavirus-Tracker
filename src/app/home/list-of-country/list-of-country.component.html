@@ -1,22 +1,54 @@
+<h1>Coronavirus Cases and Deaths by Country</h1>
+<p>These are our latest gathered global stats for the Coronavirus outbreak.</p>
 
 
-  <div class="d-flex-column" style="align-content: center;">
+<div style="overflow-x:auto;">
+  <table class="table table table-dark table-striped tablesorter tablesorter-default" id="indexpage">
+    <thead>
+      <tr class="tablesorter-headerRow">
+        <th data-column="0" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;">
+          <div class="tablesorter-header-inner"><i class="fas fa-sort" aria-hidden="true"></i> Country</div>
+        </th>
+        <th data-column="1" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;">
+          <div class="tablesorter-header-inner"><i class="fas fa-sort" aria-hidden="true"></i> Total</div>
+        </th>
+      
+        <th data-column="3" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;">
+          <div class="tablesorter-header-inner"><i class="fas fa-sort" aria-hidden="true"></i> Deaths</div>
+        </th>
+        <th data-column="5" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;">
+          <div class="tablesorter-header-inner"><i class="fas fa-sort" aria-hidden="true"></i> Recovered</div>
+        </th>
+        <th data-column="6" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;">
+          <div class="tablesorter-header-inner"><i class="fas fa-sort" aria-hidden="true"></i> Active</div>
+        </th>
+      
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr *ngFor="let item of  sortBy('Cases');">
+          <td>
+           <div style="color: white;"><a href="{{item.Country + '_info' }}"> {{item.Country}}</a></div>
+          </td>
+          <td>{{item.Cases}}</td>
+          
+          <td>{{item.td}}</td>
+          
+          <td>{{item.tr}}</td>
+          <td>{{item.Cases - (item.td + item.tr)}}</td>
+         
+        </tr>
+       
+      </tbody>
+  </table>
+</div>
+
+
+  <!-- <div class="d-flex-column" style="align-content: center;">
     <div style="text-align: center;">Total Confirmed</div>
     <h2 style="text-align: center;">{{TotalConfirmedCases | number}}</h2>
-  </div>
-  <div class="d-flex-column" style="text-align: justify;">
-    <div style="text-align: center;">Confirmed Cases by</div>
-  </div>
-  <div class="d-flex-column" style="text-align: justify;">
-    <div style="text-align: center;"> Country/Region/Sovereignty </div>
-  </div>
+  </div> -->
 
-  <hr/>
-    <div  *ngFor="let item of  sortBy('Cases');" > 
-       <div style="border-bottom: 1px solid; height: 2.2rem;">
-      <b>{{item.Cases}}</b> &nbsp; {{item.Country}}
-      
-    </div>
-    </div>
 
   
