@@ -171,7 +171,7 @@ export class CountryNumbersService {
         var dd2 = formatDate(d2, 'yyyy-MM-dd', 'en-US');
 
 
-        this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/countries", { headers : {'Access-Control-Allow-Origin' : '*'}}).subscribe((countryData : Params) => {
+        this.http.get("https://api.covid19api.com/countries", { headers : {'Access-Control-Allow-Origin' : '*'}}).subscribe((countryData : Params) => {
           // this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/api/recipebook/Country/us/status/confirmed", { headers : {'Access-Control-Allow-Origin' : '*'}}).subscribe((data : Params) => {
          
                 //Iterating through each country
@@ -181,7 +181,7 @@ export class CountryNumbersService {
                 if(countrySlug !== "taiwan*")
                 {
 
-                    this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/country/" + countrySlug + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' }})
+                    this.http.get("https://api.covid19api.com/country/" + countrySlug + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' }})
                     .subscribe((selectedCountryCases) => {
 
                         let arryData0 = selectedCountryCases as countrymarkerdata[];
