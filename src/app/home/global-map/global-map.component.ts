@@ -13,7 +13,7 @@ import { countrymarkerdata } from '../../shared/models/countrymarkerdata';
 })
 export class GlobalMapComponent implements OnInit {
 
-  constructor(private service : CountryNumbersService){
+  constructor(private service : CountryNumbersService, private http : HttpClient){
 
     // if (navigator.geolocation) {
     //   navigator.geolocation.getCurrentPosition((position, this) => {
@@ -54,20 +54,29 @@ export class GlobalMapComponent implements OnInit {
   
   ngOnInit() {
 
-    this.service.GetCurrentLocationInfo().subscribe((response  :Params) => {
+    this.service.GetCurrentLocationInfo().subscribe((data : Params) => {
 
-      console.log('User\'s Location Data is ', response);
-      console.log('User\'s Country', response.country);
-    });
+      const currentIP = data.ip
+      
+          this.http.get("https://ipapi.co/"+currentIP+"/json/'",{ headers : {'Access-Control-Allow-Origin' : '*'}})
+            .subscribe((data : Params) => {
 
-    console.log(this.lat);
-    console.log(this.lng);
+              this.lat = data.latitude;
+              this.lng = data.longitude;
 
-    this.map = new google.maps.Map(this.gmap.nativeElement, 
-      this.mapOptions);
-      this.marker.setMap(this.map);
+              console.log(this.lat);
+              console.log(this.lng);
+            });
+  
+      }); 
 
-    this.service.GetMarkerInfo(this.map)
+   
+      this.map = new google.maps.Map(this.gmap.nativeElement, 
+        this.mapOptions);
+        this.marker.setMap(this.map);
+  
+      this.service.GetMarkerInfo(this.map)
+  
 
     this.service.markersChanged.subscribe((markerInfo : countrymarkerdata) => {
       
