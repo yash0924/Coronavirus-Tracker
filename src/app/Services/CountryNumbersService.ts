@@ -153,7 +153,7 @@ export class CountryNumbersService {
 
    GetCurrentLocationInfo()
    {
-     return this.http.get("https://geolocation-db.com/json/'",{ headers : {'Access-Control-Allow-Origin' : '*'}});
+     return this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/ipinfo",{ headers : {'Access-Control-Allow-Origin' : '*'}});
    }
 
     GetMarkerInfo(map){
