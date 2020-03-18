@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
         this.TotalConfirmed =  +data.results[0].total_cases;
         this.TotalDeaths =  +data.results[0].total_deaths;
         this.TotalRecovered =  +data.results[0].total_recovered;
-        this.TotalActive =  +data.results[0].total_active_cases;
+        this.TotalActive =  +data.results[0].total_unresolved;
 
       }
 
