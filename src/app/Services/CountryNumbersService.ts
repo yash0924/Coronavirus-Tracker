@@ -176,28 +176,31 @@ export class CountryNumbersService {
                             return new Date(e.Date);
                          })));
         
-                         var mostRecentObject = arryData0.filter( e => { 
+                         var mostRecentObjects = arryData0.filter( e => { 
                             var d = new Date( e.Date ); 
                             return d.getTime() == mostRecentDate.getTime();
-                        })[0];
+                        });
 
-                        console.log(mostRecentObject);
-                                
-                                var newObj : countrymarkerdata = {
+
+                        mostRecentObjects.forEach(mostRecentObject => {
+                             
+                        var newObj : countrymarkerdata = {
                                     
-                                    position: new google.maps.LatLng(mostRecentObject.Lat, mostRecentObject.Lon),
-                                    map: map,
-                                    Country : mostRecentObject.Country,
-                                    Province:  mostRecentObject.Province, 
-                                    Cases : mostRecentObject.Cases, 
-                                    Lat : mostRecentObject.Lat, 
-                                    Lon : mostRecentObject.Lon,
-                                    Date : mostRecentObject.Date,
-                                    Status : mostRecentObject.Status
-                                
-                                 };
+                            position: new google.maps.LatLng(mostRecentObject.Lat, mostRecentObject.Lon),
+                            map: map,
+                            Country : mostRecentObject.Country,
+                            Province:  mostRecentObject.Province, 
+                            Cases : mostRecentObject.Cases, 
+                            Lat : mostRecentObject.Lat, 
+                            Lon : mostRecentObject.Lon,
+                            Date : mostRecentObject.Date,
+                            Status : mostRecentObject.Status
+                        
+                         };
 
-                                this.markersChanged.next(newObj);
+                        this.markersChanged.next(newObj);
+                        });
+                              
                     });
                 }
                 });
