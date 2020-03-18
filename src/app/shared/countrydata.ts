@@ -1,5 +1,7 @@
 export class countrydata{
 
+    position : any;
+    map : any;
     Country : string;
     Province : string;
     Lat : number;

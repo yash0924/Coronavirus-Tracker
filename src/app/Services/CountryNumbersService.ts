@@ -9,6 +9,7 @@ import { MarkerInfo } from '../shared/MarkerInfo';
 import { updatedServiceData } from '../shared/updatedServiceData';
 import { countryDataGrouped } from '../shared/countryDataGrouped';
 import { news } from '../shared/models/news';
+import { countrymarkerdata } from '../shared/models/countrymarkerdata';
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +24,7 @@ export class CountryNumbersService {
     numberDataUpdatedForC = new Subject<updatedServiceData>();
     numberDataUpdatedForR = new Subject<{ totalNumer: number, totalNumberPerCountry: countrydata[] }>();
     numberDataUpdatedForD = new Subject<{ totalNumer: number, totalNumberPerCountry: countrydata[] }>();
-    markersChanged = new Subject<countrydata>();
+    markersChanged = new Subject<countrymarkerdata>();
 
     latestNews = new Subject<news>();
 
@@ -182,7 +183,7 @@ export class CountryNumbersService {
                     this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/country/" + countrySlug + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' }})
                     .subscribe((selectedCountryCases) => {
 
-                        let arryData0 = selectedCountryCases as countrydata[];
+                        let arryData0 = selectedCountryCases as countrymarkerdata[];
                         for (let index = 0; index < arryData0.length; index++) {
                             const element = arryData0[index];
             
@@ -193,20 +194,25 @@ export class CountryNumbersService {
             
                             if (newDate >= dd2) {
                                 
-                                var newOBj = {
+                                var newObj : countrymarkerdata = {
+                                    
                                     position: new google.maps.LatLng(element.Lat, element.Lon),
                                     map: map,
                                     Country : element.Country,
                                     Province:  element.Province, 
                                     Cases : element.Cases, 
                                     Lat : element.Lat, 
-                                    Lon : element.Lon  };
+                                    Lon : element.Lon,
+                                    Date : element.Date,
+                                    Status : element.Status
+                                
+                                 };
 
                                     
                                // markersInner.push(newOBj);
             
                                 
-                                this.markersChanged.next(newOBj);
+                                this.markersChanged.next(newObj);
                             }
                            
                           }

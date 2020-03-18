@@ -4,6 +4,7 @@ import { Params } from '@angular/router';
 import { Subject } from 'rxjs';
 import { countrydata } from '../../shared/countrydata';
 import { CountryNumbersService } from '../../Services/CountryNumbersService';
+import { countrymarkerdata } from '../../shared/models/countrymarkerdata';
 
 @Component({
   selector: 'app-global-map',
@@ -41,7 +42,7 @@ export class GlobalMapComponent implements OnInit {
 
     this.service.GetMarkerInfo(this.map)
 
-    this.service.markersChanged.subscribe((markerInfo : countrydata) => {
+    this.service.markersChanged.subscribe((markerInfo : countrymarkerdata) => {
       
        //Creating a new marker object
       const marker = new google.maps.Circle({
