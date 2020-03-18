@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ngOnInit() {
 
     this.service.numberDataUpdatedForC.subscribe((data  :updatedServiceData) => {
+      
 
       this.TotalConfirmed =  +data.totalNumerC;
       this.TotalDeaths =  +data.totalNumerD;

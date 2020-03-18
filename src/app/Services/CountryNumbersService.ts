@@ -10,6 +10,7 @@ import { updatedServiceData } from '../shared/updatedServiceData';
 import { countryDataGrouped } from '../shared/countryDataGrouped';
 import { news } from '../shared/models/news';
 import { countrymarkerdata } from '../shared/models/countrymarkerdata';
+import { ArrayType } from '@angular/compiler';
 
 @Injectable({
     providedIn: 'root'
@@ -43,35 +44,18 @@ export class CountryNumbersService {
 
     
     calcForC(){
-        
-        var d = new Date();
-        d.setDate(d.getDate());
-        var dd = formatDate(d, 'yyyy-MM-dd', 'en-US') ;
-
-        var d1 = new Date();
-        d1.setDate(d1.getDate() - 1);
-        var dd1 = formatDate(d1, 'yyyy-MM-dd', 'en-US');
-
-
-        var d2 = new Date();
-        d2.setDate(d2.getDate() - 2);
-        var dd2 = formatDate(d2, 'yyyy-MM-dd', 'en-US');
-
-        var d3 = new Date();
-        d3.setDate(d3.getDate() - 3);
-        var dd3 = formatDate(d3, 'yyyy-MM-dd', 'en-US');
-
+     
         for (let index = 0; index < this.countries.length; index++) {
                 const countrySelected = this.countries[index];
                // const countrySelected = 'us';
 
-            // const recovered = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/recovered", { headers: { 'Access-Control-Allow-Origin': '*' } });
-            // const confirmed = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' } });
-            // const death = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/deaths", { headers: { 'Access-Control-Allow-Origin': '*' } });
+            const recovered = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/recovered", { headers: { 'Access-Control-Allow-Origin': '*' } });
+            const confirmed = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' } });
+            const death = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/deaths", { headers: { 'Access-Control-Allow-Origin': '*' } });
             
-            const recovered = this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/total/country/" + countrySelected + "/status/recovered", { headers: { 'Access-Control-Allow-Origin': '*' } });
-            const confirmed = this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/total/country/" + countrySelected + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' } });
-            const death = this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/total/country/" + countrySelected + "/status/deaths", { headers: { 'Access-Control-Allow-Origin': '*' } });
+            // const recovered = this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/total/country/" + countrySelected + "/status/recovered", { headers: { 'Access-Control-Allow-Origin': '*' } });
+            // const confirmed = this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/total/country/" + countrySelected + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' } });
+            // const death = this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/total/country/" + countrySelected + "/status/deaths", { headers: { 'Access-Control-Allow-Origin': '*' } });
             
             forkJoin([confirmed,recovered, death]).pipe(map(result => {
 
@@ -85,70 +69,70 @@ export class CountryNumbersService {
 
                
                let elementtoEmit : countrydata ;
-            for (let index = 0; index < arryData0.length; index++) {
-                const element = arryData0[index];
+               if(arryData0){
+                  
+                var mostRecentDate1 = new Date(Math.max.apply(null, arryData0.map( e => {
+                    return new Date(e.Date);
+                 })));
 
+                 var mostRecentObject1 = arryData0.filter( e => { 
+                    var d = new Date( e.Date ); 
+                    return d.getTime() == mostRecentDate1.getTime();
+                })[0];
                
-                let newDateUn = new Date(element['Date']);
-                let newDate = formatDate(newDateUn, 'yyyy-MM-dd', 'en-US') ;
+                this.totalNumberConfirmedPerCountry.push(mostRecentObject1);
+                this.totalConfirmed = this.totalConfirmed + +mostRecentObject1.Cases;
 
-
-                if (newDate >= dd2) {
-                    this.totalNumberConfirmedPerCountry.push(element);
-                    this.totalConfirmed = this.totalConfirmed + +element.Cases;
-
-                    
                 }
-               
-              }
+            if(arryData1){
+                var mostRecentDate2 = new Date(Math.max.apply(null, arryData1.map( e => {
+                    return new Date(e.Date);
+                 })));
 
+                 var mostRecentObject2 = arryData1.filter( e => { 
+                    var d = new Date( e.Date ); 
+                    return d.getTime() == mostRecentDate2.getTime();
+                })[0];
 
-            
-              for (let index = 0; index < arryData1.length; index++) {
-                const element =arryData1[index];
-
-                let newDateUn = new Date(element['Date']);
-                let newDate = formatDate(newDateUn, 'yyyy-MM-dd', 'en-US') ;
-             if (newDate >= dd2) {
-
-                let match = this.totalNumberConfirmedPerCountry.find(r => r.Country === element.Country);
+                let match = this.totalNumberConfirmedPerCountry.find(r => r.Country === mostRecentObject2.Country);
 
                 if(match)
                 {
-                    const index = this.totalNumberConfirmedPerCountry.findIndex(r => r.Country === element.Country);
-                    this.totalNumberConfirmedPerCountry[index].tr = element.Cases;
-                    this.totalRecovered = this.totalRecovered + +element.Cases;
+                    const index = this.totalNumberConfirmedPerCountry.findIndex(r => r.Country === mostRecentObject2.Country);
+                    this.totalNumberConfirmedPerCountry[index].tr = mostRecentObject2.Cases;
+                    this.totalRecovered = this.totalRecovered + +mostRecentObject2.Cases;
                 }
-               
-                }
-              }
+            }
 
-              for (let index = 0; index < arryData2.length; index++) {
-                const element =arryData2[index];
+            if(arryData2){ 
+                var mostRecentDate3 = new Date(Math.max.apply(null, arryData2.map( e => {
+                    return new Date(e.Date);
+                 })));
 
-                let newDateUn = new Date(element['Date']);
-                let newDate = formatDate(newDateUn, 'yyyy-MM-dd', 'en-US') ;
+                 var mostRecentObject3 = arryData2.filter( e => { 
+                    var d = new Date( e.Date ); 
+                    return d.getTime() == mostRecentDate3.getTime();
+                })[0];
 
-               if (newDate >= dd2) {
-
-                let match2 = this.totalNumberConfirmedPerCountry.find(r => r.Country === element.Country);
+                let match2 = this.totalNumberConfirmedPerCountry.find(r => r.Country === mostRecentObject3.Country);
 
                 if(match2)
                 {
-                    const index = this.totalNumberConfirmedPerCountry.findIndex(r => r.Country === element.Country);
+                    const index = this.totalNumberConfirmedPerCountry.findIndex(r => r.Country === mostRecentObject3.Country);
 
                     
-                    this.totalNumberConfirmedPerCountry[index].td = element.Cases;
-                    let combined = +element.Cases + +this.totalNumberConfirmedPerCountry[index].tr;
+                    this.totalNumberConfirmedPerCountry[index].td = mostRecentObject3.Cases;
+                    let combined = +mostRecentObject3.Cases + +this.totalNumberConfirmedPerCountry[index].tr;
                     this.totalNumberConfirmedPerCountry[index].ta =  this.totalNumberConfirmedPerCountry[index].Cases - combined;
 
-                    this.totalNumerDeaths = this.totalNumerDeaths + +element.Cases;
+                    this.totalNumerDeaths = this.totalNumerDeaths + +mostRecentObject3.Cases;
 
                     elementtoEmit = this.totalNumberConfirmedPerCountry[index];
                 }                   
-                }
-              }
+               
               
+            }
+           
               this.numberDataUpdatedForC.next(new updatedServiceData(this.totalConfirmed, this.totalRecovered, this.totalNumerDeaths, elementtoEmit));
 
               
@@ -178,46 +162,44 @@ export class CountryNumbersService {
          
                 //Iterating through each country
                 countryData.forEach((countrySelected ) => {
+                    
                     const countrySlug = countrySelected.Slug;
+                if(countrySlug !== "taiwan*")
+                {
 
                     this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/country/" + countrySlug + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' }})
                     .subscribe((selectedCountryCases) => {
 
                         let arryData0 = selectedCountryCases as countrymarkerdata[];
-                        for (let index = 0; index < arryData0.length; index++) {
-                            const element = arryData0[index];
-            
-                           
-                            let newDateUn = new Date(element['Date']);
-                            let newDate = formatDate(newDateUn, 'yyyy-MM-dd', 'en-US') ;
-            
-            
-                            if (newDate >= dd2) {
+                      
+                        var mostRecentDate = new Date(Math.max.apply(null, arryData0.map( e => {
+                            return new Date(e.Date);
+                         })));
+        
+                         var mostRecentObject = arryData0.filter( e => { 
+                            var d = new Date( e.Date ); 
+                            return d.getTime() == mostRecentDate.getTime();
+                        })[0];
+
+                        console.log(mostRecentObject);
                                 
                                 var newObj : countrymarkerdata = {
                                     
-                                    position: new google.maps.LatLng(element.Lat, element.Lon),
+                                    position: new google.maps.LatLng(mostRecentObject.Lat, mostRecentObject.Lon),
                                     map: map,
-                                    Country : element.Country,
-                                    Province:  element.Province, 
-                                    Cases : element.Cases, 
-                                    Lat : element.Lat, 
-                                    Lon : element.Lon,
-                                    Date : element.Date,
-                                    Status : element.Status
+                                    Country : mostRecentObject.Country,
+                                    Province:  mostRecentObject.Province, 
+                                    Cases : mostRecentObject.Cases, 
+                                    Lat : mostRecentObject.Lat, 
+                                    Lon : mostRecentObject.Lon,
+                                    Date : mostRecentObject.Date,
+                                    Status : mostRecentObject.Status
                                 
                                  };
 
-                                    
-                               // markersInner.push(newOBj);
-            
-                                
                                 this.markersChanged.next(newObj);
-                            }
-                           
-                          }
                     });
-
+                }
                 });
 
                
