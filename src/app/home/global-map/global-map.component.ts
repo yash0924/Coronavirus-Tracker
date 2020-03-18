@@ -39,10 +39,7 @@ export class GlobalMapComponent implements OnInit {
   markers = [];
   coordinates = new google.maps.LatLng(this.lat, this.lng);
 
-  mapOptions: google.maps.MapOptions = {
-    center: this.coordinates,
-    zoom: 3,
-  };
+  //mapOptions: google.maps.MapOptions =;
 
   marker = new google.maps.Marker({
     //position: this.coordinates,
@@ -56,24 +53,23 @@ export class GlobalMapComponent implements OnInit {
 
     this.service.GetCurrentLocationInfo().subscribe((data : Params) => {
 
-      const currentIP = data.ip
-      
-          this.http.get("https://ipapi.co/"+currentIP+"/json/'",{ headers : {'Access-Control-Allow-Origin' : '*'}})
-            .subscribe((data : Params) => {
-
               this.lat = data.latitude;
               this.lng = data.longitude;
 
               console.log(this.lat);
               console.log(this.lng);
-            });
-  
+
+              this.map = new google.maps.Map(this.gmap.nativeElement, 
+                {
+                  center:new google.maps.LatLng(this.lat, this.lng),
+                  zoom: 3,
+                });
+                this.marker.setMap(this.map);
+          
       }); 
 
    
-      this.map = new google.maps.Map(this.gmap.nativeElement, 
-        this.mapOptions);
-        this.marker.setMap(this.map);
+     
   
       this.service.GetMarkerInfo(this.map)
   
