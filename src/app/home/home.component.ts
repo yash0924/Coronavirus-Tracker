@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { ListOfCountryComponent } from './list-of-country/list-of-country.component';
 import { CountryNumbersService } from '../Services/CountryNumbersService';
 import { updatedServiceData } from '../shared/updatedServiceData';
+import { Params } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -21,26 +22,18 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
 
-    this.service.numberDataUpdatedForC.subscribe((data  :updatedServiceData) => {
+    this.service.GetTotalStats().subscribe((data  :Params) => {
       
+      console.log(data.results[0].total_cases);
 
-      this.TotalConfirmed =  +data.totalNumerC;
-      this.TotalDeaths =  +data.totalNumerD;
-      this.TotalRecovered =  +data.totalNumerR;
-      this.TotalActive =  +data.totalNumerC - (+data.totalNumerR + +data.totalNumerD);
+      if(data && data.results)
+      {
+        this.TotalConfirmed =  +data.results[0].total_cases;
+        this.TotalDeaths =  +data.results[0].total_deaths;
+        this.TotalRecovered =  +data.results[0].total_recovered;
+        this.TotalActive =  +data.results[0].total_active_cases;
 
-      //console.log(this.TotalConfirmed);
-      //this. TotalDeaths = ""
-      // this.TotalDeaths = data.totalNumerR;
-      // this.TotalDeaths = data.totalNumerD;
-      // this.TotalActive = data.totalNumerC - (data.totalNumerR + data.totalNumerD);
-
-      
-      //this.TotalDeaths = data.totalNumerR;
-      // this.TotalDeaths = data.totalNumerD;
-      // this.TotalActive = data.totalNumerC - (data.totalNumerR + data.totalNumerD);
-
-      
+      }
 
     });
   }

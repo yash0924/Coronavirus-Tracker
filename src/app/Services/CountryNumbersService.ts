@@ -42,6 +42,11 @@ export class CountryNumbersService {
 
     countriesSlug : string[] = [];
 
+
+    GetTotalStats(){
+        return  this.http.get("https://thevirustracker.com/free-api?global=stats");
+    }
+
     
     calcForC(){
      

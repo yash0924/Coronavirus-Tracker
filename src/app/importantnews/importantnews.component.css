@@ -1,4 +1,10 @@
 .newsdiv{
     font-size: large;
     font-weight: 400;
+    margin: 0 auto;
+    background-color: #343a40!important; 
+    color: white !important;
+     margin-top: 0.2em; 
+      margin-bottom: 0.2em; 
+      border-radius: 10px;
 }
