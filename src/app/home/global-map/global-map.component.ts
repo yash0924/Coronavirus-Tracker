@@ -54,7 +54,11 @@ export class GlobalMapComponent implements OnInit {
   
   ngOnInit() {
 
+    this.service.GetCurrentLocationInfo().subscribe((response  :Params) => {
 
+      console.log('User\'s Location Data is ', response);
+      console.log('User\'s Country', response.country);
+    });
 
     console.log(this.lat);
     console.log(this.lng);

@@ -151,7 +151,10 @@ export class CountryNumbersService {
 
    
 
-   
+   GetCurrentLocationInfo()
+   {
+    return  this.http.get("http://ip-api.com/json'",{ headers : {'Access-Control-Allow-Origin' : '*'}}); 
+   }
 
     GetMarkerInfo(map){
       
