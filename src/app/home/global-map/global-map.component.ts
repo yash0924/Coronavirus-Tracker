@@ -33,13 +33,16 @@ export class GlobalMapComponent implements OnInit {
   }
   @ViewChild('mapContainer') gmap: ElementRef;
   map: google.maps.Map;
-  lat = 40;
-  lng = -4;
+  lat = 41.6005;
+  lng = -93.6091;
 
   markers = [];
   coordinates = new google.maps.LatLng(this.lat, this.lng);
 
-  //mapOptions: google.maps.MapOptions =;
+  mapOptions: google.maps.MapOptions = {
+    center: this.coordinates,
+    zoom: 3,
+  };
 
   marker = new google.maps.Marker({
     //position: this.coordinates,
@@ -51,28 +54,22 @@ export class GlobalMapComponent implements OnInit {
   
   ngOnInit() {
 
-    this.service.GetCurrentLocationInfo().subscribe((data : Params) => {
+    // this.service.GetCurrentLocationInfo().subscribe((data : Params) => {
 
-              this.lat = data.latitude;
-              this.lng = data.longitude;
-
-              console.log(this.lat);
-              console.log(this.lng);
-
-              this.map = new google.maps.Map(this.gmap.nativeElement, 
-                {
-                  center:new google.maps.LatLng(this.lat, this.lng),
-                  zoom: 3,
-                });
-                this.marker.setMap(this.map);
-          
-      }); 
+    //   const currentIP = data.ip
+      
+    //       this.http.get("https://ipapi.co/"+currentIP+"/json/'",{ headers : {'Access-Control-Allow-Origin' : '*'}})
+    //         .subscribe((data : Params) => {});
+  
+    //   }); 
 
    
-     
-  
-      this.service.GetMarkerInfo(this.map)
-  
+
+    this.map = new google.maps.Map(this.gmap.nativeElement, 
+      this.mapOptions);
+      this.marker.setMap(this.map);
+
+    this.service.GetMarkerInfo(this.map)
 
     this.service.markersChanged.subscribe((markerInfo : countrymarkerdata) => {
       
