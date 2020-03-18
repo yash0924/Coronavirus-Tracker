@@ -15,22 +15,8 @@ export class GlobalMapComponent implements OnInit {
 
   constructor(private service : CountryNumbersService, private http : HttpClient){
 
-    // if (navigator.geolocation) {
-    //   navigator.geolocation.getCurrentPosition((position, this) => {
-    //     that = this;
-    //     that.lat = position.coords.latitude;
-    //     that.lng =  position.coords.longitude;
-     
-
-    //   }, function() {
-       
-    //   });
-    // } else {
-    //   // Browser doesn't support Geolocation
-     
-    // }
-
   }
+
   @ViewChild('mapContainer') gmap: ElementRef;
   map: google.maps.Map;
   lat = 41.6005;
@@ -42,33 +28,20 @@ export class GlobalMapComponent implements OnInit {
   mapOptions: google.maps.MapOptions = {
     center: this.coordinates,
     zoom: 3,
+    mapTypeId: 'terrain'
   };
 
-  marker = new google.maps.Marker({
-    //position: this.coordinates,
-    map: this.map,
-  });
+  // marker = new google.maps.Marker({
+  //     map: this.map,
+  // });
 
   
 
   
   ngOnInit() {
 
-    // this.service.GetCurrentLocationInfo().subscribe((data : Params) => {
-
-    //   const currentIP = data.ip
-      
-    //       this.http.get("https://ipapi.co/"+currentIP+"/json/'",{ headers : {'Access-Control-Allow-Origin' : '*'}})
-    //         .subscribe((data : Params) => {});
-  
-    //   }); 
-
-   
-
-    this.map = new google.maps.Map(this.gmap.nativeElement, 
-      this.mapOptions);
-      this.marker.setMap(this.map);
-
+     this.map = new google.maps.Map(this.gmap.nativeElement, this.mapOptions);
+     
     this.service.GetMarkerInfo(this.map)
 
     this.service.markersChanged.subscribe((markerInfo : countrymarkerdata) => {
@@ -96,7 +69,8 @@ export class GlobalMapComponent implements OnInit {
       //Add click event to open info window on marker
       marker.addListener("click", () => {
 
-       
+        infoWindow.close();
+        
         this.map.setZoom(4);
         this.map.setCenter(marker.getCenter());
 

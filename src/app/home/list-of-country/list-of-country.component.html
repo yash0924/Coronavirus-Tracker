@@ -12,7 +12,7 @@
     <thead>
       <tr class="tablesorter-headerRow">
         <th data-column="0" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;"
-         [class.active]="order === 'Country'"       (click)="setOrder('Country')"> 
+         [class.active]="order === 'country'"       (click)="setOrder('country')"> 
           <div class="tablesorter-header-inner"> Country
             <i class="fa fa-sort" aria-hidden="true"></i></div>
         </th>
@@ -27,25 +27,25 @@
           <div class="tablesorter-header-inner">Recovered <i class="fa fa-sort" aria-hidden="true"></i> </div>
         </th>
         <th data-column="6" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;" [class.active]="order === 'ta'"       (click)="setOrder('ta')">
-          <div class="tablesorter-header-inner">Active <i class="fa fa-sort" aria-hidden="true"></i> </div>
+          <div class="tablesorter-header-inner">Critical <i class="fa fa-sort" aria-hidden="true"></i> </div>
         </th>
       
       </tr>
     </thead>
     <tbody>
       <!-- https://github.com/VadimDez/ngx-order-pipe -->
-        <tr *ngFor="let item of  countriesDataC | orderBy: order:reverse | filter : 'Country' : searchString; ">
+        <tr *ngFor="let item of  countriesDataC | orderBy: order:reverse | filter : 'country' : searchString; ">
           
           
           <td>
-           <div style="color: white;"><a href="{{item.Country + '_info' }}"> {{item.Country}}</a></div>
+           <div style="color: white;"><a href="{{item.Country + '_info' }}"> {{item.country}}</a></div>
           </td>
-          <td>{{item.Cases}}</td>
+          <td>{{item.cases}}</td>
           
-          <td>{{item.td}}</td>
+          <td>{{item.deaths}}</td>
           
-          <td>{{item.tr}}</td>
-          <td>{{item.ta}}</td>
+          <td>{{item.recovred}}</td>
+          <td>{{item.critical}}</td>
          
         </tr>
        

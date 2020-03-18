@@ -44,112 +44,114 @@ export class CountryNumbersService {
 
 
     GetTotalStats(){
-        return  this.http.get("https://thevirustracker.com/free-api?global=stats");
+        return  this.http.get("https://corona.lmao.ninja/all");
     }
 
     
     calcForC(){
+
+       return  this.http.get("https://corona.lmao.ninja/countries");
      
-        for (let index = 0; index < this.countries.length; index++) {
-                const countrySelected = this.countries[index];
-               // const countrySelected = 'us';
+        // for (let index = 0; index < this.countries.length; index++) {
+        //         const countrySelected = this.countries[index];
+        //        // const countrySelected = 'us';
 
-            // const recovered = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/recovered", { headers: { 'Access-Control-Allow-Origin': '*' } });
-            // const confirmed = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' } });
-            // const death = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/deaths", { headers: { 'Access-Control-Allow-Origin': '*' } });
+        //     // const recovered = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/recovered", { headers: { 'Access-Control-Allow-Origin': '*' } });
+        //     // const confirmed = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' } });
+        //     // const death = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/deaths", { headers: { 'Access-Control-Allow-Origin': '*' } });
             
-            const recovered = this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/total/country/" + countrySelected + "/status/recovered", { headers: { 'Access-Control-Allow-Origin': '*' } });
-            const confirmed = this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/total/country/" + countrySelected + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' } });
-            const death = this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/total/country/" + countrySelected + "/status/deaths", { headers: { 'Access-Control-Allow-Origin': '*' } });
+        //     const recovered = this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/total/country/" + countrySelected + "/status/recovered", { headers: { 'Access-Control-Allow-Origin': '*' } });
+        //     const confirmed = this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/total/country/" + countrySelected + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' } });
+        //     const death = this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/total/country/" + countrySelected + "/status/deaths", { headers: { 'Access-Control-Allow-Origin': '*' } });
            
-            // const recovered = this.http.get("https://api.covid19api.com/total/country/" + countrySelected + "/status/recovered", { headers: { 'Access-Control-Allow-Origin': '*' } });
-            // const confirmed = this.http.get("https:/api.covid19api.com/total/country/" + countrySelected + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' } });
-            // const death = this.http.get("https://api.covid19api.com/total/country/" + countrySelected + "/status/deaths", { headers: { 'Access-Control-Allow-Origin': '*' } });
+        //     // const recovered = this.http.get("https://api.covid19api.com/total/country/" + countrySelected + "/status/recovered", { headers: { 'Access-Control-Allow-Origin': '*' } });
+        //     // const confirmed = this.http.get("https:/api.covid19api.com/total/country/" + countrySelected + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' } });
+        //     // const death = this.http.get("https://api.covid19api.com/total/country/" + countrySelected + "/status/deaths", { headers: { 'Access-Control-Allow-Origin': '*' } });
            
 
 
-            forkJoin([confirmed,recovered, death]).pipe(map(result => {
+        //     forkJoin([confirmed,recovered, death]).pipe(map(result => {
 
-                return result;
-            })).subscribe(
-            result  => {
+        //         return result;
+        //     })).subscribe(
+        //     result  => {
 
-               let arryData0 = result[0] as countrydata[];
-               const arryData1 = result[1] as countrydata[];
-               const arryData2 = result[2] as countrydata[];
+        //        let arryData0 = result[0] as countrydata[];
+        //        const arryData1 = result[1] as countrydata[];
+        //        const arryData2 = result[2] as countrydata[];
 
                
-               let elementtoEmit : countrydata ;
+        //        let elementtoEmit : countrydata ;
 
-               if(arryData0){
+        //        if(arryData0){
                   
-                var mostRecentDate1 = new Date(Math.max.apply(null, arryData0.map( e => {
-                    return new Date(e.Date);
-                 })));
+        //         var mostRecentDate1 = new Date(Math.max.apply(null, arryData0.map( e => {
+        //             return new Date(e.Date);
+        //          })));
 
-                 var mostRecentObject1 = arryData0.filter( e => { 
-                    var d = new Date( e.Date ); 
-                    return d.getTime() == mostRecentDate1.getTime();
-                })[0];
+        //          var mostRecentObject1 = arryData0.filter( e => { 
+        //             var d = new Date( e.Date ); 
+        //             return d.getTime() == mostRecentDate1.getTime();
+        //         })[0];
                
-                this.totalNumberConfirmedPerCountry.push(mostRecentObject1);
-                this.totalConfirmed = this.totalConfirmed + +mostRecentObject1.Cases;
+        //         this.totalNumberConfirmedPerCountry.push(mostRecentObject1);
+        //         this.totalConfirmed = this.totalConfirmed + +mostRecentObject1.Cases;
 
-                }
-            if(arryData1){
-                var mostRecentDate2 = new Date(Math.max.apply(null, arryData1.map( e => {
-                    return new Date(e.Date);
-                 })));
+        //         }
+        //     if(arryData1){
+        //         var mostRecentDate2 = new Date(Math.max.apply(null, arryData1.map( e => {
+        //             return new Date(e.Date);
+        //          })));
 
-                 var mostRecentObject2 = arryData1.filter( e => { 
-                    var d = new Date( e.Date ); 
-                    return d.getTime() == mostRecentDate2.getTime();
-                })[0];
+        //          var mostRecentObject2 = arryData1.filter( e => { 
+        //             var d = new Date( e.Date ); 
+        //             return d.getTime() == mostRecentDate2.getTime();
+        //         })[0];
 
-                let match = this.totalNumberConfirmedPerCountry.find(r => r.Country === mostRecentObject2.Country);
+        //         let match = this.totalNumberConfirmedPerCountry.find(r => r.Country === mostRecentObject2.Country);
 
-                if(match)
-                {
-                    const index = this.totalNumberConfirmedPerCountry.findIndex(r => r.Country === mostRecentObject2.Country);
-                    this.totalNumberConfirmedPerCountry[index].tr = mostRecentObject2.Cases;
-                    this.totalRecovered = this.totalRecovered + +mostRecentObject2.Cases;
-                }
-            }
+        //         if(match)
+        //         {
+        //             const index = this.totalNumberConfirmedPerCountry.findIndex(r => r.Country === mostRecentObject2.Country);
+        //             this.totalNumberConfirmedPerCountry[index].tr = mostRecentObject2.Cases;
+        //             this.totalRecovered = this.totalRecovered + +mostRecentObject2.Cases;
+        //         }
+        //     }
 
-            if(arryData2){ 
-                var mostRecentDate3 = new Date(Math.max.apply(null, arryData2.map( e => {
-                    return new Date(e.Date);
-                 })));
+        //     if(arryData2){ 
+        //         var mostRecentDate3 = new Date(Math.max.apply(null, arryData2.map( e => {
+        //             return new Date(e.Date);
+        //          })));
 
-                 var mostRecentObject3 = arryData2.filter( e => { 
-                    var d = new Date( e.Date ); 
-                    return d.getTime() == mostRecentDate3.getTime();
-                })[0];
+        //          var mostRecentObject3 = arryData2.filter( e => { 
+        //             var d = new Date( e.Date ); 
+        //             return d.getTime() == mostRecentDate3.getTime();
+        //         })[0];
 
-                let match2 = this.totalNumberConfirmedPerCountry.find(r => r.Country === mostRecentObject3.Country);
+        //         let match2 = this.totalNumberConfirmedPerCountry.find(r => r.Country === mostRecentObject3.Country);
 
-                if(match2)
-                {
-                    const index = this.totalNumberConfirmedPerCountry.findIndex(r => r.Country === mostRecentObject3.Country);
+        //         if(match2)
+        //         {
+        //             const index = this.totalNumberConfirmedPerCountry.findIndex(r => r.Country === mostRecentObject3.Country);
 
                     
-                    this.totalNumberConfirmedPerCountry[index].td = mostRecentObject3.Cases;
-                    let combined = +mostRecentObject3.Cases + +this.totalNumberConfirmedPerCountry[index].tr;
-                    this.totalNumberConfirmedPerCountry[index].ta =  this.totalNumberConfirmedPerCountry[index].Cases - combined;
+        //             this.totalNumberConfirmedPerCountry[index].td = mostRecentObject3.Cases;
+        //             let combined = +mostRecentObject3.Cases + +this.totalNumberConfirmedPerCountry[index].tr;
+        //             this.totalNumberConfirmedPerCountry[index].ta =  this.totalNumberConfirmedPerCountry[index].Cases - combined;
 
-                    this.totalNumerDeaths = this.totalNumerDeaths + +mostRecentObject3.Cases;
+        //             this.totalNumerDeaths = this.totalNumerDeaths + +mostRecentObject3.Cases;
 
-                    elementtoEmit = this.totalNumberConfirmedPerCountry[index];
-                }                   
+        //             elementtoEmit = this.totalNumberConfirmedPerCountry[index];
+        //         }                   
                
               
-            }
+        //     }
            
-              this.numberDataUpdatedForC.next(new updatedServiceData(this.totalConfirmed, this.totalRecovered, this.totalNumerDeaths, elementtoEmit));
+        //       this.numberDataUpdatedForC.next(new updatedServiceData(this.totalConfirmed, this.totalRecovered, this.totalNumerDeaths, elementtoEmit));
 
               
-            });
-        }
+        //     });
+        // }
 
         
 

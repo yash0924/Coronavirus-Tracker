@@ -9,6 +9,7 @@ import { updatedServiceData } from '../../shared/updatedServiceData';
 import { countryDataGrouped } from '../../shared/countryDataGrouped';
 
 import { OrderPipe } from 'ngx-order-pipe';
+import { coronalmaodata } from '../../shared/models/coronalmaodata';
 
 @Component({
   selector: 'app-list-of-country',
@@ -20,9 +21,9 @@ export class ListOfCountryComponent implements OnInit {
 
    totalDataUpdated = new Subject<{tc: number, tr :number, td : number, ta: number}>();
 
-  countriesDataC: countrydata[] = [];
+  countriesDataC: coronalmaodata[] = [];
   TotalConfirmedCases : number = 0;
-  order: string = 'Cases';
+  order: string = 'cases';
   reverse: boolean = true;
   tc: number = 0;
   tr: number;
@@ -43,21 +44,13 @@ export class ListOfCountryComponent implements OnInit {
 
   ngOnInit() {
 
-    this.countryNumberService.calcForC();
-    
-    this.countryNumberService.numberDataUpdatedForC.subscribe((data  : updatedServiceData) =>{
+    this.countryNumberService.calcForC().subscribe((data : any) =>{
      
-        if(data.totalCountriesC)
+        if(data)
          {
 
-           this.countriesDataC.push(new countrydata(data.totalCountriesC.Country,
-                                                    data.totalCountriesC.Date,
-                                                   +data.totalCountriesC.Cases,
-                                                   +data.totalCountriesC.tr,
-                                                   +data.totalCountriesC.td,
-                                                   +data.totalCountriesC.ta ));
-
-           }        
+           this.countriesDataC = data;
+         }
 
       });
         

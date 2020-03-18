@@ -24,12 +24,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
     this.service.GetTotalStats().subscribe((data  :Params) => {
       
-            if(data && data.results)
+            if(data)
       {
-        this.TotalConfirmed =  +data.results[0].total_cases;
-        this.TotalDeaths =  +data.results[0].total_deaths;
-        this.TotalRecovered =  +data.results[0].total_recovered;
-        this.TotalActive =  +data.results[0].total_unresolved;
+        this.TotalConfirmed =  +data.cases;
+        this.TotalDeaths =  +data.deaths;
+        this.TotalRecovered =  +data.recovered;
+        this.TotalActive =  this.TotalConfirmed - (this.TotalDeaths + this.TotalRecovered);
 
       }
 
