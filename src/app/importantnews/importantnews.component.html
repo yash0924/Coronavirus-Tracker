@@ -1,0 +1,24 @@
+
+
+
+  <div class="row"  *ngFor="let news of newsData" style="justify-content: center; align-content: flex-end;margin-bottom: 2px; margin-top: 2px; ">
+    <div class="col-sm-8 newsdiv" style="background-color: #343a40!important; color: white !important; margin-top: 0.2em; 
+      margin-bottom: 0.2em; border-radius: 10px;" >
+      
+     
+
+     
+        <h5 style="font-weight: bold; color : darkorange;" >
+        
+        <span  class="badge badge-danger cBadge" style="margin-right: 0.5rem;">{{news.source.name}}</span>
+         <a [href]="news.url" target="_blank" style="color: unset !important;">{{news.title}}</a> 
+         <span  class="badge badge-primary cBadge"  style="margin-left: 0.5rem;">{{news.publishedAt | date }}</span>
+        </h5>
+     
+       <hr />
+       <div>{{news.content}} <a [href]="news.url" target="_blank" >Read More</a></div>
+
+    </div>
+  </div>
+
+

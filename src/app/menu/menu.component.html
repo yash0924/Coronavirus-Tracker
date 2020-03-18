@@ -7,16 +7,28 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-      <a class="navbar-brand" href="#"><span class="d-none d-sm-inline">Coronavirus Tracker</span></a>
+      <a class="navbar-brand" href="#">
+        <img src="../../assets/virus1600_w.png"  style="height:40px;margin-right:10px;" alt="coronavirus tracker" />
+        <span class="d-none d-sm-inline h4">Coronavirus Tracker</span></a>
       <ul class="navbar-nav mr-auto mt-lg-0">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+       
+      </ul>
+
+      <ul class="navbar-nav navbar-right" style="margin-right: 10%;">
+        <li class="nav-item">
+          <a class="nav-link h5" [routerLink]="'/home'" routerLinkActive="active" >Home </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <a class="nav-link h5" [routerLink]="'/how-to-stay-safe'" routerLinkActive="active"> How to stay safe? </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled" href="#">Disabled</a>
+          <a class="nav-link h5" [routerLink]="'/important-news'" routerLinkActive="active">Important News</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link h5" [routerLink]="'/data-source'" routerLinkActive="active">Data Source</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link h5" [routerLink]="'/about-me'" routerLinkActive="active">About Me</a>
         </li>
       </ul>
     </div>

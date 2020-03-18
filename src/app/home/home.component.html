@@ -1,11 +1,28 @@
 <div class="container">
 
   
-<div  class="row"  style="background-color: #404040 !important; color: white !important; text-align: center; justify-content: center; align-content: flex-end;width : 101% !important;margin-bottom: 2px; padding: 3px; ">
+<div  class="row"  style="background-color: #404040 !important; color: white !important; text-align: center;
+ justify-content: center; align-content: flex-end;margin-bottom: 2px; margin-top: 2px; ">
 
-  <div style=" justify-content: center; ">
-    CoronoVirus Global Cases - Source : John Hopkins University
-   </div>
+ 
+      <div class="col-3 text-center">
+                          <h2 class="NumberOfInfections" style="color:#1877F2;">{{ TotalConfirmed  | number}}</h2>
+                          <h5>Infected</h5>
+      </div>
+      <div class="col-3 text-center">
+                          <h2 class="deathsnumbers" style="color:#FB3938;">{{TotalDeaths  | number}}</h2>
+                          <h5>Deaths</h5>
+      </div>
+      <div class="col-3 text-center">
+                          <h2 class="recoverednumbers" style="color:#3AA969;">{{TotalRecovered | number}}</h2>
+                          <h4>Recovered</h4>
+      </div>
+      <div class="col-3 text-center">
+          <h2 class="UNRESOLVEDnumbers" style="color:yellow;">{{TotalActive | number}}</h2>
+          <h4>Unresolved</h4>
+      </div>
+ 
+   
    
   </div>
 
@@ -13,15 +30,15 @@
 
 
 
-<div style=" background-color: #404040; color: white; margin: 1px; border: 1px solid;" class="col-sm-12">
+<div style=" background-color: #404040;  margin-top: 1px; margin-bottom: 1px; " class="col-sm-12">
 <app-global-map></app-global-map>
   </div>
-
+  <hr />
      
 </div>
 
 <div  class="row" >
-  <div style="height: 500px; overflow-y: scroll; background-color: #404040; color: white; margin: 1px; " class="col-sm-12">
+  <div style="background-color: #404040; color: white; margin: 1px; " class="col-sm-12">
 
     <app-list-of-country ></app-list-of-country>
     

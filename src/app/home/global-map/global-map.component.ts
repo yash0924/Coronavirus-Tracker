@@ -12,15 +12,13 @@ import { CountryNumbersService } from '../../Services/CountryNumbersService';
 })
 export class GlobalMapComponent implements OnInit {
 
- 
-
   constructor(private service : CountryNumbersService){}
   @ViewChild('mapContainer') gmap: ElementRef;
   map: google.maps.Map;
   lat = 40;
   lng = -4;
 
-  markers = this.service.GetMarkerInfo(this.map);
+  markers = [];
   coordinates = new google.maps.LatLng(this.lat, this.lng);
 
   mapOptions: google.maps.MapOptions = {
@@ -28,46 +26,24 @@ export class GlobalMapComponent implements OnInit {
     zoom: 3,
   };
 
-  mapInitializer() {
-    this.map = new google.maps.Map(this.gmap.nativeElement, 
-    this.mapOptions);
-
-    //Adding Click event to default marker
-    this.marker.addListener("click", () => {
-      const infoWindow = new google.maps.InfoWindow({
-        content: this.marker.getTitle()
-      });
-      infoWindow.open(this.marker.getMap(), this.marker);
-    });
-
-    this.marker.setMap(this.map);
-
-     //Adding other markers
-     this.loadAllMarkers();
-
-   }
-  
-  ngOnInit() {
-
-    this.mapInitializer();
-
-    this.service.markersChanged.subscribe((data : countrydata[]) => {
-        this.mapInitializer();
-    });
-
-
-   }
-
-   marker = new google.maps.Marker({
+  marker = new google.maps.Marker({
     //position: this.coordinates,
     map: this.map,
   });
 
-  loadAllMarkers(): void {
-    this.markers.forEach(markerInfo => {
+  
+  
+  ngOnInit() {
 
+    this.map = new google.maps.Map(this.gmap.nativeElement, 
+      this.mapOptions);
+      this.marker.setMap(this.map);
+
+    this.service.GetMarkerInfo(this.map)
+
+    this.service.markersChanged.subscribe((markerInfo : countrydata) => {
       
-      //Creating a new marker object
+       //Creating a new marker object
       const marker = new google.maps.Circle({
         strokeColor: '#FF0000',
         strokeOpacity: 0.8,
@@ -75,7 +51,7 @@ export class GlobalMapComponent implements OnInit {
         fillColor: '#FF0000',
         fillOpacity: 0.35,
         map: this.map,
-        center:{lat : +markerInfo.lat, lng : +markerInfo.lon},
+        center:{lat : +markerInfo.Lat, lng : +markerInfo.Lon},
         radius: Math.sqrt(markerInfo.Cases) * 5000
       });
 
@@ -93,6 +69,19 @@ export class GlobalMapComponent implements OnInit {
 
       //Adding marker to google map
       marker.setMap(this.map);
+    });
+   }
+
+   mapInitializer() {
+    this.loadAllMarkers();
+  }
+
+  loadAllMarkers(): void {
+    console.log(this.markers);
+    this.markers.forEach(markerInfo => {
+
+      
+      
     });
   }
 

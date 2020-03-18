@@ -17,15 +17,20 @@ export class countrydata{
 
 
     
-    constructor(country, province, lat, lon, date,cases,status,){
+    constructor(country, date,cases : number, tr : number, td : number, ta : number){
 
         this.Country = country;
-        this.Province = province;
-        this.Lat = lat;
+      
+      
         this.Date = date;
-        this.Lon = lon;
+      
         this.Cases = cases;
         this.Status = status;
+        this.tc = cases;
+        this.tr = tr;
+        this.td = td;
+    
+        this.ta = ta;
        
 
     }

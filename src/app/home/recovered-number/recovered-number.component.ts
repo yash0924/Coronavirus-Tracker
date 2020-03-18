@@ -35,7 +35,7 @@ export class RecoveredNumberComponent implements OnInit {
 
   ngOnInit() {
 
-    this.countryNumberService.calcForR();
+    //this.countryNumberService.calcForR();
 
     this.countryNumberService.numberDataUpdatedForR.subscribe((data ) => {
 

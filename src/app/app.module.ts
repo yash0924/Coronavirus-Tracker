@@ -14,6 +14,14 @@ import { GlobalMapComponent } from './home/global-map/global-map.component';
 import { DeathNumberComponent } from './home/death-number/death-number.component';
 import { RecoveredNumberComponent } from './home/recovered-number/recovered-number.component';
 import { CountryNumbersService } from './Services/CountryNumbersService';
+import { OrderModule } from 'ngx-order-pipe';
+import { FormsModule } from '@angular/forms';
+import { FilterpipePipe } from './shared/filterpipe.pipe';
+import { HowtostaysafeComponent } from './howtostaysafe/howtostaysafe.component';
+import { ImportantnewsComponent } from './importantnews/importantnews.component';
+import { DatasourceComponent } from './datasource/datasource.component';
+import { AboutmeComponent } from './aboutme/aboutme.component';
+
 
 
 
@@ -26,7 +34,14 @@ import { CountryNumbersService } from './Services/CountryNumbersService';
     HomeComponent,
     ListOfCountryComponent,
     DeathNumberComponent,
-    RecoveredNumberComponent
+    RecoveredNumberComponent,
+    FilterpipePipe,
+    HowtostaysafeComponent,
+    ImportantnewsComponent,
+    DatasourceComponent,
+    AboutmeComponent
+    
+    
   ],
   imports: [
     BrowserModule,
@@ -36,7 +51,9 @@ import { CountryNumbersService } from './Services/CountryNumbersService';
       libraries: ['places'] 
     }),
 
-    AppRoutingModule
+    AppRoutingModule,
+    OrderModule,
+    FormsModule
   ],
   providers: [CountryNumbersService],
   bootstrap: [AppComponent]

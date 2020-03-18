@@ -36,7 +36,7 @@ export class DeathNumberComponent implements OnInit {
 
   ngOnInit() {
 
-    this.countryNumberService.calcForD();
+    //this.countryNumberService.calcForD();
 
     this.countryNumberService.numberDataUpdatedForD.subscribe((data ) => {
 

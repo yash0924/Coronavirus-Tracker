@@ -6,7 +6,7 @@ export class updatedServiceData{
     totalNumerR : number;
     totalNumerD : number;
 
-    totalCountriesC : countrydata[];
+    totalCountriesC : countrydata;
  
 
     constructor(tc,tr,td,tcc){

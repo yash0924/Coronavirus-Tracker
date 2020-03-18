@@ -1,33 +1,40 @@
-<h1>Coronavirus Cases and Deaths by Country</h1>
-<p>These are our latest gathered global stats for the Coronavirus outbreak.</p>
+<h2>Coronavirus Cases and Deaths by Country</h2>
+<hr />
+<div class="col-sm-3" style="margin-left: 0 !important;">
+ 
+  <input type="text" class="form-control" placeholder="Search By Country..." [(ngModel)]="searchString" />
+</div>
+<hr />
 
 
 <div style="overflow-x:auto;">
   <table class="table table table-dark table-striped tablesorter tablesorter-default" id="indexpage">
     <thead>
       <tr class="tablesorter-headerRow">
-        <th data-column="0" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;">
-          <div class="tablesorter-header-inner"><i class="fas fa-sort" aria-hidden="true"></i> Country</div>
+        <th data-column="0" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;"
+         [class.active]="order === 'Country'"       (click)="setOrder('Country')"> 
+          <div class="tablesorter-header-inner"> Country
+            <i class="fa fa-sort" aria-hidden="true"></i></div>
         </th>
-        <th data-column="1" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;">
-          <div class="tablesorter-header-inner"><i class="fas fa-sort" aria-hidden="true"></i> Total</div>
+        <th data-column="1" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;" [class.active]="order === 'Cases'"       (click)="setOrder('Cases')">
+          <div class="tablesorter-header-inner"> Total <i class="fa fa-sort" aria-hidden="true"></i></div>
         </th>
       
-        <th data-column="3" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;">
-          <div class="tablesorter-header-inner"><i class="fas fa-sort" aria-hidden="true"></i> Deaths</div>
+        <th data-column="3" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;"[class.active]="order === 'tr'"       (click)="setOrder('tr')">
+          <div class="tablesorter-header-inner">Deaths <i class="fa fa-sort" aria-hidden="true"></i> </div>
         </th>
-        <th data-column="5" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;">
-          <div class="tablesorter-header-inner"><i class="fas fa-sort" aria-hidden="true"></i> Recovered</div>
+        <th data-column="5" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;" [class.active]="order === 'td'"       (click)="setOrder('td')">
+          <div class="tablesorter-header-inner">Recovered <i class="fa fa-sort" aria-hidden="true"></i> </div>
         </th>
-        <th data-column="6" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;">
-          <div class="tablesorter-header-inner"><i class="fas fa-sort" aria-hidden="true"></i> Active</div>
+        <th data-column="6" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;" [class.active]="order === 'ta'"       (click)="setOrder('ta')">
+          <div class="tablesorter-header-inner">Active <i class="fa fa-sort" aria-hidden="true"></i> </div>
         </th>
       
       </tr>
     </thead>
     <tbody>
       <!-- https://github.com/VadimDez/ngx-order-pipe -->
-        <tr *ngFor="let item of  countriesDataC | orderBy:-Cases">
+        <tr *ngFor="let item of  countriesDataC | orderBy: order:reverse | filter : 'Country' : searchString; ">
           <td>
            <div style="color: white;"><a href="{{item.Country + '_info' }}"> {{item.Country}}</a></div>
           </td>

@@ -1,0 +1,14 @@
+.datasouce{
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+
+ul {
+    list-style-type: none;
+}
+
+li{
+    margin-bottom: 5px;
+    font-size: large;
+}

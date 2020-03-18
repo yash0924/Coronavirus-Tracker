@@ -1,12 +1,14 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterContentInit, AfterViewInit } from '@angular/core';
 import { countrydata } from '../../shared/countrydata';
 import { HttpClient } from '@angular/common/http';
-import { Params } from '@angular/router';
+import { Params, Event } from '@angular/router';
 import { map, filter, first, merge } from 'rxjs/operators'
 import { Subject } from 'rxjs';
 import { CountryNumbersService } from '../../Services/CountryNumbersService';
 import { updatedServiceData } from '../../shared/updatedServiceData';
 import { countryDataGrouped } from '../../shared/countryDataGrouped';
+
+import { OrderPipe } from 'ngx-order-pipe';
 
 @Component({
   selector: 'app-list-of-country',
@@ -15,53 +17,58 @@ import { countryDataGrouped } from '../../shared/countryDataGrouped';
 })
 export class ListOfCountryComponent implements OnInit {
 
+
+   totalDataUpdated = new Subject<{tc: number, tr :number, td : number, ta: number}>();
+
   countriesDataC: countrydata[] = [];
   TotalConfirmedCases : number = 0;
-
-  countriesDataR: countrydata[] = [];
-  TotalRecoveredCases : number = 0;
-
-   
-  countriesDataD: countrydata[] = [];
-  TotalDCases : number = 0;
-  
-  merged = [];
+  order: string = 'Cases';
+  reverse: boolean = true;
+  tc: number = 0;
+  tr: number;
+  td: number;
+  ta: number;
 
 
-  //@Input() listOfCountries : countrydata[]
-  // listOfCountries : countrydata[] =
-  // [
-  //   {
+  constructor(private http: HttpClient, private countryNumberService : CountryNumbersService, private orderPipe: OrderPipe) { 
+    // this.sortedCollection = orderPipe.transform(this.collection, 'info.name');
+  }
 
-  //     Country: 'Thailand',
-  //     Province: '',
-  //     Lat: 15,
-  //     Lon: 101,
-  //     Date: '2020-01-22T00:00:00Z',
-  //     Cases: 2,
-  //     Status: 'confirmed'
-  //   }]
-  constructor(private http: HttpClient, private countryNumberService : CountryNumbersService) { }
-
-  // sortBy(prop: string) {
-  //   return this.countriesDataC.sort((a, b) => a[prop] < b[prop] ? 1 : a[prop] === b[prop] ? 0 : -1);
-  // }
-
+  setOrder(value: string) {
+    if (this.order === value) {
+      this.reverse = !this.reverse;
+    }
+    this.order = value;
+  }
 
   ngOnInit() {
 
     this.countryNumberService.calcForC();
-
-    let mergedData = [];
-    let result = [];
+    
     this.countryNumberService.numberDataUpdatedForC.subscribe((data  : updatedServiceData) =>{
-        this.countriesDataC = data.totalCountriesC;
+     
+     
 
+      this.TotalConfirmedCases = data.totalNumerC;
+
+           this.countriesDataC.push(new countrydata(data.totalCountriesC.Country,
+                                                    data.totalCountriesC.Date,
+                                                   +data.totalCountriesC.Cases,
+                                                   +data.totalCountriesC.tr,
+                                                   +data.totalCountriesC.td,
+                                                   +data.totalCountriesC.ta ));
+
+             
 
       });
         
     }
 
-
+    // filerData(searchTerm : string)
+    // {
+    //   this.countriesDataC = this.countriesDataC.filter(singleItem =>
+    //     singleItem.Country.toLowerCase().includes(searchTerm.toLowerCase())
+    //   );
+    // }
 
 }
