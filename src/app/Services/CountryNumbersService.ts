@@ -153,7 +153,7 @@ export class CountryNumbersService {
 
    GetCurrentLocationInfo()
    {
-    return  this.http.get("http://ip-api.com/json'",{ headers : {'Access-Control-Allow-Origin' : '*'}}); 
+    return  this.http.get("https://ip-api.com/json'",{ headers : {'Access-Control-Allow-Origin' : '*'}}); 
    }
 
     GetMarkerInfo(map){
