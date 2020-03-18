@@ -69,6 +69,7 @@ export class CountryNumbersService {
 
                
                let elementtoEmit : countrydata ;
+
                if(arryData0){
                   
                 var mostRecentDate1 = new Date(Math.max.apply(null, arryData0.map( e => {

@@ -47,9 +47,8 @@ export class ListOfCountryComponent implements OnInit {
     
     this.countryNumberService.numberDataUpdatedForC.subscribe((data  : updatedServiceData) =>{
      
-     
-
-      this.TotalConfirmedCases = data.totalNumerC;
+        if(data.totalCountriesC)
+         {
 
            this.countriesDataC.push(new countrydata(data.totalCountriesC.Country,
                                                     data.totalCountriesC.Date,
@@ -58,7 +57,7 @@ export class ListOfCountryComponent implements OnInit {
                                                    +data.totalCountriesC.td,
                                                    +data.totalCountriesC.ta ));
 
-             
+           }        
 
       });
         

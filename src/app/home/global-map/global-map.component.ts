@@ -13,7 +13,24 @@ import { countrymarkerdata } from '../../shared/models/countrymarkerdata';
 })
 export class GlobalMapComponent implements OnInit {
 
-  constructor(private service : CountryNumbersService){}
+  constructor(private service : CountryNumbersService){
+
+    // if (navigator.geolocation) {
+    //   navigator.geolocation.getCurrentPosition((position, this) => {
+    //     that = this;
+    //     that.lat = position.coords.latitude;
+    //     that.lng =  position.coords.longitude;
+     
+
+    //   }, function() {
+       
+    //   });
+    // } else {
+    //   // Browser doesn't support Geolocation
+     
+    // }
+
+  }
   @ViewChild('mapContainer') gmap: ElementRef;
   map: google.maps.Map;
   lat = 40;
@@ -33,8 +50,14 @@ export class GlobalMapComponent implements OnInit {
   });
 
   
+
   
   ngOnInit() {
+
+
+
+    console.log(this.lat);
+    console.log(this.lng);
 
     this.map = new google.maps.Map(this.gmap.nativeElement, 
       this.mapOptions);

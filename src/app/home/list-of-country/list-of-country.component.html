@@ -35,6 +35,8 @@
     <tbody>
       <!-- https://github.com/VadimDez/ngx-order-pipe -->
         <tr *ngFor="let item of  countriesDataC | orderBy: order:reverse | filter : 'Country' : searchString; ">
+          
+          
           <td>
            <div style="color: white;"><a href="{{item.Country + '_info' }}"> {{item.Country}}</a></div>
           </td>
