@@ -2,6 +2,9 @@ agm-map {
     height: 600px;
   }
 
+  .popup{
+    background-color: 343a40; color: white;
+  }
   #map {
     height: 600px;
     width: 100%;

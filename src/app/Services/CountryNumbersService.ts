@@ -64,10 +64,14 @@ export class CountryNumbersService {
                 const countrySelected = this.countries[index];
                // const countrySelected = 'us';
 
-            const recovered = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/recovered", { headers: { 'Access-Control-Allow-Origin': '*' } });
-            const confirmed = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' } });
-            const death = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/deaths", { headers: { 'Access-Control-Allow-Origin': '*' } });
-                    
+            // const recovered = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/recovered", { headers: { 'Access-Control-Allow-Origin': '*' } });
+            // const confirmed = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' } });
+            // const death = this.http.get("http://localhost:43909/total/country/" + countrySelected + "/status/deaths", { headers: { 'Access-Control-Allow-Origin': '*' } });
+            
+            const recovered = this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/total/country/" + countrySelected + "/status/recovered", { headers: { 'Access-Control-Allow-Origin': '*' } });
+            const confirmed = this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/total/country/" + countrySelected + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' } });
+            const death = this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/total/country/" + countrySelected + "/status/deaths", { headers: { 'Access-Control-Allow-Origin': '*' } });
+            
             forkJoin([confirmed,recovered, death]).pipe(map(result => {
 
                 return result;
@@ -168,14 +172,14 @@ export class CountryNumbersService {
         var dd2 = formatDate(d2, 'yyyy-MM-dd', 'en-US');
 
 
-        this.http.get("http://localhost:43909/countries", { headers : {'Access-Control-Allow-Origin' : '*'}}).subscribe((countryData : Params) => {
+        this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/countries", { headers : {'Access-Control-Allow-Origin' : '*'}}).subscribe((countryData : Params) => {
           // this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/api/recipebook/Country/us/status/confirmed", { headers : {'Access-Control-Allow-Origin' : '*'}}).subscribe((data : Params) => {
          
                 //Iterating through each country
                 countryData.forEach((countrySelected ) => {
                     const countrySlug = countrySelected.Slug;
 
-                    this.http.get("http://localhost:43909/country/" + countrySlug + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' }})
+                    this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/country/" + countrySlug + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' }})
                     .subscribe((selectedCountryCases) => {
 
                         let arryData0 = selectedCountryCases as countrydata[];
@@ -192,7 +196,8 @@ export class CountryNumbersService {
                                 var newOBj = {
                                     position: new google.maps.LatLng(element.Lat, element.Lon),
                                     map: map,
-                                    title: element.Country + "_ " + element.Province, 
+                                    Country : element.Country,
+                                    Province:  element.Province, 
                                     Cases : element.Cases, 
                                     Lat : element.Lat, 
                                     Lon : element.Lon  };

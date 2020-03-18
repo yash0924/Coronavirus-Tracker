@@ -58,13 +58,20 @@ export class GlobalMapComponent implements OnInit {
 
 
       //creating a new info window with markers info
+      const countryproviencinfo = markerInfo.Province ? markerInfo.Province : markerInfo.Country;
       const infoWindow = new google.maps.InfoWindow({
-        content: "Cases : "+ markerInfo.Cases + "/n Province" + markerInfo.Province
+        content: '<div><h4>'+  countryproviencinfo +'<h4> <hr /><h5>Cases : '+ markerInfo.Cases+'</h5></div>'
       });
 
       //Add click event to open info window on marker
       marker.addListener("click", () => {
-        infoWindow.open(marker.getMap(), marker);
+
+       
+        this.map.setZoom(4);
+        this.map.setCenter(marker.getCenter());
+
+        infoWindow.setPosition(marker.getCenter());
+        infoWindow.open(this.map);
       });
 
       //Adding marker to google map
@@ -72,17 +79,6 @@ export class GlobalMapComponent implements OnInit {
     });
    }
 
-   mapInitializer() {
-    this.loadAllMarkers();
-  }
 
-  loadAllMarkers(): void {
-    console.log(this.markers);
-    this.markers.forEach(markerInfo => {
-
-      
-      
-    });
-  }
 
 }
