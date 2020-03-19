@@ -18,21 +18,11 @@ import { coronalmaodata } from '../../shared/models/coronalmaodata';
 })
 export class ListOfCountryComponent implements OnInit {
 
-
-   totalDataUpdated = new Subject<{tc: number, tr :number, td : number, ta: number}>();
-
   countriesDataC: coronalmaodata[] = [];
-  TotalConfirmedCases : number = 0;
   order: string = 'cases';
   reverse: boolean = true;
-  tc: number = 0;
-  tr: number;
-  td: number;
-  ta: number;
-
-
-  constructor(private http: HttpClient, private countryNumberService : CountryNumbersService, private orderPipe: OrderPipe) { 
-    // this.sortedCollection = orderPipe.transform(this.collection, 'info.name');
+  
+  constructor(private http: HttpClient, private countryNumberService: CountryNumbersService, private orderPipe: OrderPipe) {
   }
 
   setOrder(value: string) {
@@ -42,25 +32,11 @@ export class ListOfCountryComponent implements OnInit {
     this.order = value;
   }
 
-  ngOnInit() {
-
-    this.countryNumberService.calcForC().subscribe((data : any) =>{
-     
-        if(data)
-         {
-
-           this.countriesDataC = data;
-         }
-
-      });
-        
-    }
-
-    // filerData(searchTerm : string)
-    // {
-    //   this.countriesDataC = this.countriesDataC.filter(singleItem =>
-    //     singleItem.Country.toLowerCase().includes(searchTerm.toLowerCase())
-    //   );
-    // }
-
+ngOnInit() {
+    this.countryNumberService.calcForC().subscribe((data: any) => {
+      if (data) {
+        this.countriesDataC = data;
+      }
+    });
+  }
 }

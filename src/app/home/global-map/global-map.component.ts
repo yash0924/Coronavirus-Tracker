@@ -31,12 +31,7 @@ export class GlobalMapComponent implements OnInit {
     mapTypeId: 'terrain'
   };
 
-  // marker = new google.maps.Marker({
-  //     map: this.map,
-  // });
-
-  
-
+ 
   
   ngOnInit() {
 
@@ -48,6 +43,7 @@ export class GlobalMapComponent implements OnInit {
       
        //Creating a new marker object
       const marker = new google.maps.Circle({
+        
         strokeColor: '#FF0000',
         strokeOpacity: 0.8,
         strokeWeight: 2,

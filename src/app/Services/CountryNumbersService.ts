@@ -229,10 +229,6 @@ export class CountryNumbersService {
 
 
     getLatestNews(){
-
-
-
-
        return this.http.get("https://newsapi.org/v2/everything?q=coronavirus&sortBy=publishedAt&language=en&apiKey=0e283689abe54696987ae8a1f6537804");
     }
 

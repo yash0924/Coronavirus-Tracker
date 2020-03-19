@@ -9,35 +9,28 @@ import { Params } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit, AfterViewInit {
+export class HomeComponent implements OnInit {
 
   TotalConfirmed: number = 0;
   TotalDeaths: number = 0;
   TotalRecovered: number = 0;
   TotalActive: number = 0;
 
-  @ViewChild(ListOfCountryComponent) listCountry;
-
-  constructor(private service : CountryNumbersService) { }
+  constructor(private service: CountryNumbersService) { }
 
   ngOnInit() {
 
-    this.service.GetTotalStats().subscribe((data  :Params) => {
-      
-            if(data)
-      {
-        this.TotalConfirmed =  +data.cases;
-        this.TotalDeaths =  +data.deaths;
-        this.TotalRecovered =  +data.recovered;
-        this.TotalActive =  this.TotalConfirmed - (this.TotalDeaths + this.TotalRecovered);
+    this.service.GetTotalStats().subscribe((data: Params) => {
 
+      if (data) {
+        this.TotalConfirmed = +data.cases;
+        this.TotalDeaths = +data.deaths;
+        this.TotalRecovered = +data.recovered;
+        this.TotalActive = this.TotalConfirmed - (this.TotalDeaths + this.TotalRecovered);
       }
-
     });
   }
 
-  ngAfterViewInit() {
-    this.TotalConfirmed = this.listCountry.tc
-  }
+ 
 
 }
