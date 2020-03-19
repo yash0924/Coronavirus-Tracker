@@ -39,4 +39,12 @@ ngOnInit() {
       }
     });
   }
+
+  
+loadMapInfo(country : string){
+
+    this.countryNumberService.getLatLongBasedOnCountry(country);
+
 }
+}
+

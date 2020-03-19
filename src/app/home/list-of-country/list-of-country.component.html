@@ -34,11 +34,11 @@
     </thead>
     <tbody>
       <!-- https://github.com/VadimDez/ngx-order-pipe -->
-        <tr *ngFor="let item of  countriesDataC | orderBy: order:reverse | filter : 'country' : searchString; ">
+        <tr (click)="loadMapInfo(item.country)" style=" cursor: pointer;"  *ngFor="let item of  countriesDataC | orderBy: order:reverse | filter : 'country' : searchString; ">
           
           
           <td>
-           <div style="color: white;"><a href="{{item.Country + '_info' }}"> {{item.country}}</a></div>
+           <div style="color: white;"><span style="color : rgb(68, 149, 255);" > {{item.country}}</span></div>
           </td>
           <td>{{item.cases}}</td>
           

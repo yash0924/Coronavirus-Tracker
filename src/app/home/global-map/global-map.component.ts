@@ -13,6 +13,7 @@ import { tileLayer, latLng, Circle } from 'leaflet';
   styleUrls: ['./global-map.component.css']
 })
 export class GlobalMapComponent implements OnInit {
+  mapCenter: any;
 
   constructor(private service : CountryNumbersService, private http : HttpClient){
 
@@ -50,6 +51,12 @@ export class GlobalMapComponent implements OnInit {
     // this.map = new google.maps.Map(this.gmap.nativeElement, this.mapOptions);
      
     this.service.GetMarkerInfo(this.map)
+
+    this.service.markSelectedCountry.subscribe((data: any) => {
+
+      this.mapCenter =  latLng(+data.lat,  +data.lon) ;
+
+    });
 
     this.service.markersChanged.subscribe((markerInfo : countrymarkerdata) => {
       const countryproviencinfo = markerInfo.Province ? markerInfo.Province : markerInfo.Country;

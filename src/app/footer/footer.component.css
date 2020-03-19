@@ -8,3 +8,12 @@
     color: white;
     font-weight: 600;
 }
+
+.back-to-top {
+    
+    cursor: pointer;
+    position: fixed;
+    bottom: 30px;
+    right: 10px;
+    display: none;
+}

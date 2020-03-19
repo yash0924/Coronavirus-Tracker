@@ -22,10 +22,26 @@
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
-<body style="background-color: black;">
+<body style="background-color: black;" >
   <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0"></script>
 
   <app-root></app-root>
 </body>
+
+<script>
+ 
+
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    mybutton = document.getElementById("back-to-top");
+    
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "inline";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+</script>
 </html>
