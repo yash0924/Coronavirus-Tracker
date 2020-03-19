@@ -21,6 +21,7 @@ import { HowtostaysafeComponent } from './howtostaysafe/howtostaysafe.component'
 import { ImportantnewsComponent } from './importantnews/importantnews.component';
 import { DatasourceComponent } from './datasource/datasource.component';
 import { AboutmeComponent } from './aboutme/aboutme.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 
 
@@ -53,7 +54,9 @@ import { AboutmeComponent } from './aboutme/aboutme.component';
 
     AppRoutingModule,
     OrderModule,
-    FormsModule
+    FormsModule,
+    LeafletModule.forRoot()
+    
   ],
   providers: [CountryNumbersService],
   bootstrap: [AppComponent]
