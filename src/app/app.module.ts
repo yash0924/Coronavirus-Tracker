@@ -22,6 +22,7 @@ import { ImportantnewsComponent } from './importantnews/importantnews.component'
 import { DatasourceComponent } from './datasource/datasource.component';
 import { AboutmeComponent } from './aboutme/aboutme.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { DeviceDetectorModule } from 'ngx-device-detector';
 
 
 
@@ -55,7 +56,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     AppRoutingModule,
     OrderModule,
     FormsModule,
-    LeafletModule.forRoot()
+    LeafletModule.forRoot(),
+    DeviceDetectorModule.forRoot()
     
   ],
   providers: [CountryNumbersService],

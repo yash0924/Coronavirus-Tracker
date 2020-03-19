@@ -1,11 +1,10 @@
 import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Params } from '@angular/router';
-import { Subject } from 'rxjs';
-import { countrydata } from '../../shared/countrydata';
 import { CountryNumbersService } from '../../Services/CountryNumbersService';
 import { countrymarkerdata } from '../../shared/models/countrymarkerdata';
 import { tileLayer, latLng, Circle } from 'leaflet';
+import { DeviceDetectorService } from 'ngx-device-detector';
+
 
 @Component({
   selector: 'app-global-map',
@@ -14,16 +13,33 @@ import { tileLayer, latLng, Circle } from 'leaflet';
 })
 export class GlobalMapComponent implements OnInit {
   mapCenter: any;
+  deviceInfo: any;
+  zoom: number = 0;
 
-  constructor(private service : CountryNumbersService, private http : HttpClient){
-
+  constructor(private service : CountryNumbersService, private http : HttpClient, private deviceService: DeviceDetectorService) {
+    this.epicFunction();
   }
 
+  epicFunction() {
+    console.log('hello `Home` component');
+    this.deviceInfo = this.deviceService.getDeviceInfo();
+
+    const isMobile = this.deviceService.isMobile();
+
+    if(isMobile)
+    {
+      this.zoom = 4;
+    }
+    else{
+      this.zoom =  2.5;
+    }
+  }
+  
   options = {
     layers: [
-      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
+      tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, minZoom : 2.5, attribution: '...' })
     ],
-    zoom: 4,
+    zoom: this.zoom,
     center: latLng(41.6005, -93.6091)
   };
 
@@ -48,6 +64,10 @@ export class GlobalMapComponent implements OnInit {
   
   ngOnInit() {
 
+    
+    console.log(this.deviceInfo);
+
+    
     // this.map = new google.maps.Map(this.gmap.nativeElement, this.mapOptions);
      
     this.service.GetMarkerInfo(this.map)
