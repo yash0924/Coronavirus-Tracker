@@ -7,7 +7,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MenuComponent } from './menu/menu.component';
 
 import { AgmCoreModule } from '@agm/core';
-import { HttpClientModule, HttpInterceptor, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { ListOfCountryComponent } from './home/list-of-country/list-of-country.component'
 import { GlobalMapComponent } from './home/global-map/global-map.component';
@@ -23,6 +23,7 @@ import { DatasourceComponent } from './datasource/datasource.component';
 import { AboutmeComponent } from './aboutme/aboutme.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { DeviceDetectorModule } from 'ngx-device-detector';
+
 import { i1Interceptor, i2Interceptor } from './shared/interceptors/i1';
 
 
@@ -62,7 +63,16 @@ import { i1Interceptor, i2Interceptor } from './shared/interceptors/i1';
     
     
   ],
-  providers: [CountryNumbersService],
+  providers: [CountryNumbersService, {
+    provide : HTTP_INTERCEPTORS,
+    useClass : i1Interceptor,
+    multi : true
+  },
+  {
+    provide : HTTP_INTERCEPTORS,
+    useClass : i2Interceptor,
+    multi : true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

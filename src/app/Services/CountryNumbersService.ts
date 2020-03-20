@@ -48,7 +48,9 @@ export class CountryNumbersService {
     GetTotalStats(){
         return  this.http.get("https://corona.lmao.ninja/all");
     }
-
+    test(){
+        return  this.http.get("http://www.globalscrap.com/GS2019/livefeed_sfe.asp",{responseType: 'text'});
+    }
     getLatLongBasedOnCountry(country)
     {
         const selectedcon = this.latlongInfoData.filter(s => s.country.toLowerCase() === country.toLowerCase());
