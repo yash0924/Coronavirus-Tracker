@@ -18,8 +18,6 @@ export class ImportantnewsComponent implements OnInit {
 
       this.newsData = data['articles'];
 
-      console.log(this.newsData);
-
       });;
   }
 
