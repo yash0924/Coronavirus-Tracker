@@ -7,7 +7,7 @@ import { FooterComponent } from './footer/footer.component';
 import { MenuComponent } from './menu/menu.component';
 
 import { AgmCoreModule } from '@agm/core';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpClientModule, HttpInterceptor } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { ListOfCountryComponent } from './home/list-of-country/list-of-country.component'
 import { GlobalMapComponent } from './home/global-map/global-map.component';
@@ -58,6 +58,7 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
     FormsModule,
     LeafletModule.forRoot(),
     DeviceDetectorModule.forRoot()
+    
     
   ],
   providers: [CountryNumbersService],

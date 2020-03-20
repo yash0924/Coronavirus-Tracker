@@ -1,7 +1,6 @@
 export class countrymarkerdata{
 
-    position : any;
-    map : any;
+    
     Country : string;
     Province : string;
     Lat : number;

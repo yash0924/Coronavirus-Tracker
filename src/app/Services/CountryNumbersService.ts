@@ -190,8 +190,7 @@ export class CountryNumbersService {
 
                                
                         var newObj : countrymarkerdata = {
-                                    
-                            
+                                                                
                             Country : obj.country,
                             Province:  obj.province, 
                             Cases : obj.latest.confirmed, 
@@ -207,7 +206,7 @@ export class CountryNumbersService {
                     });
 
                 });
-                
+
         // let markersInner = [];
 
         
