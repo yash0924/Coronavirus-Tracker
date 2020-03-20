@@ -184,64 +184,94 @@ export class CountryNumbersService {
 
     GetMarkerInfo(map){
       
-        let markersInner = [];
+        this.http.get("https://coronavirus-tracker-api.herokuapp.com/v2/locations").subscribe((data :Params) => {
 
-        
-        var d2 = new Date();
-        d2.setDate(d2.getDate() - 2);
-        var dd2 = formatDate(d2, 'yyyy-MM-dd', 'en-US');
+                    data.locations.forEach(obj => {
 
-
-        this.http.get("https://api.covid19api.com/countries", { headers : {'Access-Control-Allow-Origin' : '*'}}).subscribe((countryData : Params) => {
-          // this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/api/recipebook/Country/us/status/confirmed", { headers : {'Access-Control-Allow-Origin' : '*'}}).subscribe((data : Params) => {
-         
-                //Iterating through each country
-                countryData.forEach((countrySelected ) => {
-                    
-                    const countrySlug = countrySelected.Slug;
-                if(countrySlug !== "taiwan*")
-                {
-
-                    this.http.get("https://api.covid19api.com/country/" + countrySlug + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' }})
-                    .subscribe((selectedCountryCases) => {
-
-                        let arryData0 = selectedCountryCases as countrymarkerdata[];
-                      
-                        var mostRecentDate = new Date(Math.max.apply(null, arryData0.map( e => {
-                            return new Date(e.Date);
-                         })));
-        
-                         var mostRecentObjects = arryData0.filter( e => { 
-                            var d = new Date( e.Date ); 
-                            return d.getTime() == mostRecentDate.getTime();
-                        });
-
-
-                        mostRecentObjects.forEach(mostRecentObject => {
-                             
+                               
                         var newObj : countrymarkerdata = {
                                     
-                            position: new google.maps.LatLng(mostRecentObject.Lat, mostRecentObject.Lon),
-                            map: map,
-                            Country : mostRecentObject.Country,
-                            Province:  mostRecentObject.Province, 
-                            Cases : mostRecentObject.Cases, 
-                            Lat : mostRecentObject.Lat, 
-                            Lon : mostRecentObject.Lon,
-                            Date : mostRecentObject.Date,
-                            Status : mostRecentObject.Status
+                            
+                            Country : obj.country,
+                            Province:  obj.province, 
+                            Cases : obj.latest.confirmed, 
+                            Lat : obj.coordinates.latitude, 
+                            Lon : obj.coordinates.longitude,
+                            Date : new Date(),
+                            Status : 'confirmed'
                         
                          };
 
                         this.markersChanged.next(newObj);
-                        });
-                              
-                    });
-                }
-                });
 
+                    });
+
+                });
+                
+        // let markersInner = [];
+
+        
+        // var d2 = new Date();
+        // d2.setDate(d2.getDate() - 2);
+        // var dd2 = formatDate(d2, 'yyyy-MM-dd', 'en-US');
+
+
+        // this.http.get("https://api.covid19api.com/countries", { headers : {'Access-Control-Allow-Origin' : '*'}}).subscribe((countryData : Params) => {
+        //   // this.http.get("https://recipebookapiservice20190223034351.azurewebsites.net/api/recipebook/Country/us/status/confirmed", { headers : {'Access-Control-Allow-Origin' : '*'}}).subscribe((data : Params) => {
+         
+        //   if(countryData && countryData.toString() != 'null')
+        //   {
+        //         //Iterating through each country
+        //         countryData.forEach((countrySelected ) => {
+                    
+        //             const countrySlug = countrySelected.Slug;
+        //         if(countrySlug !== "taiwan*")
+        //         {
+
+        //             this.http.get("https://api.covid19api.com/country/" + countrySlug + "/status/confirmed", { headers: { 'Access-Control-Allow-Origin': '*' }})
+        //             .subscribe((selectedCountryCases) => {
+
+        //                 let arryData0 = selectedCountryCases as countrymarkerdata[];
+                      
+        //                 var mostRecentDate = new Date(Math.max.apply(null, arryData0.map( e => {
+        //                     return new Date(e.Date);
+        //                  })));
+        
+        //                  var mostRecentObjects = arryData0.filter( e => { 
+        //                     var d = new Date( e.Date ); 
+        //                     return d.getTime() == mostRecentDate.getTime();
+        //                 });
+
+
+        //                 mostRecentObjects.forEach(mostRecentObject => {
+                             
+        //                 var newObj : countrymarkerdata = {
+                                    
+        //                     position: new google.maps.LatLng(mostRecentObject.Lat, mostRecentObject.Lon),
+        //                     map: map,
+        //                     Country : mostRecentObject.Country,
+        //                     Province:  mostRecentObject.Province, 
+        //                     Cases : mostRecentObject.Cases, 
+        //                     Lat : mostRecentObject.Lat, 
+        //                     Lon : mostRecentObject.Lon,
+        //                     Date : mostRecentObject.Date,
+        //                     Status : mostRecentObject.Status
+                        
+        //                  };
+
+        //                 this.markersChanged.next(newObj);
+        //                 });
+                              
+        //             });
+        //         }
+        //         });
+        //     }
+        //     else{
+
+                
+        //     }
                
-        });
+        // });
      
     }
 
