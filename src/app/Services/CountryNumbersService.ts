@@ -278,7 +278,7 @@ export class CountryNumbersService {
 
 
     getLatestNews(){
-       return this.http.get("https://newsapi.org/v2/top-headlines?q=coronavirus&country=us&country=uk&country=ch&country=in&sortBy=publishedAt&language=en&apiKey=0e283689abe54696987ae8a1f6537804");
+       return this.http.get("https://newsapi.org/v2/top-headlines?q=coronavirus&country=us&country=uk&country=ch&country=in&sortBy=publishedAt&language=en&apiKey=0e283689abe54696987ae8a1f6537804", { headers : {'Access-Control-Allow-Origin' : '*'}});
     }
 
     getinfoOld(){
