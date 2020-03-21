@@ -63,16 +63,19 @@ import { i1Interceptor, i2Interceptor } from './shared/interceptors/i1';
     
     
   ],
-  providers: [CountryNumbersService, {
-    provide : HTTP_INTERCEPTORS,
-    useClass : i1Interceptor,
-    multi : true
-  },
-  {
-    provide : HTTP_INTERCEPTORS,
-    useClass : i2Interceptor,
-    multi : true
-  }],
+   providers: [CountryNumbersService
+  //,
+  //    {
+  //   provide : HTTP_INTERCEPTORS,
+  //   useClass : i1Interceptor,
+  //   multi : true
+  // },
+  // {
+  //   provide : HTTP_INTERCEPTORS,
+  //   useClass : i2Interceptor,
+  //   multi : true
+  // }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
