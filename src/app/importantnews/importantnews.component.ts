@@ -15,6 +15,8 @@ export class ImportantnewsComponent implements OnInit {
   ngOnInit( ) {
 
     this.service.getLatestNews().subscribe(data => {
+
+      console.log(data);
       this.newsData = data['articles'];
       });;
   }

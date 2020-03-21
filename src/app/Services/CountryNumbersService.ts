@@ -283,7 +283,10 @@ export class CountryNumbersService {
        const url = "https://newsapi.org/v2/top-headlines?q=coronavirus&country=us&country=uk&country=ch&country=in&sortBy=publishedAt&language=en&apiKey=0e283689abe54696987ae8a1f6537804";
    // const url = "https://recipebookapiservice20190223034351.azurewebsites.net/news";
 
-       return this.http.get(url, { headers : {'Access-Control-Allow-Origin' : '*', 'Access-Control-Allow-Headers' : '*'}});
+       return this.http.get(url, {headers : {'Access-Control-Allow-Origin' :  '*',
+                                             'Access-Control-Allow-Credentials' :  'true', 
+                                             'Access-Control-Allow-Methods' : 'GET,HEAD,OPTIONS,POST,PUT',
+'Access-Control-Allow-Headers' : 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'}});
     }
 
 
