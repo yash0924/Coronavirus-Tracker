@@ -17,7 +17,7 @@ export class ImportantnewsComponent implements OnInit {
     this.service.getLatestNews().subscribe(data => {
 
       console.log(data);
-      this.newsData = data['articles'];
+      this.newsData = data['value'];
       });;
   }
 

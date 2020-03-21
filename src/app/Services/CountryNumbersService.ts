@@ -280,11 +280,10 @@ export class CountryNumbersService {
     getLatestNews(){
        //return this.http.get("https://newsapi.org/v2/top-headlines?q=coronavirus&country=us&country=uk&country=ch&country=in&sortBy=publishedAt&language=en&apiKey=0e283689abe54696987ae8a1f6537804", { headers : {'Access-Control-Allow-Origin' : '*', 'Access-Control-Allow-Headers' : '*'}});
 
-       const url = "https://newsapi.org/v2/top-headlines?q=coronavirus&country=us&country=uk&country=ch&country=in&sortBy=publishedAt&language=en&apiKey=0e283689abe54696987ae8a1f6537804";
-   // const url = "https://recipebookapiservice20190223034351.azurewebsites.net/news";
+    //   const url = "https://newsapi.org/v2/top-headlines?q=coronavirus&country=us&country=uk&country=ch&country=in&sortBy=publishedAt&language=en&apiKey=0e283689abe54696987ae8a1f6537804";
+    const url = "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=coronavirus";
 
-       return this.http.get(url, {headers : {                                         
-'Access-Control-Allow-Headers' : 'Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers'}});
+       return this.http.get(url, {headers : {'Ocp-Apim-Subscription-Key' : '9fc2b0698a444b7c9af64925d0447951'  }});
     }
 
 
