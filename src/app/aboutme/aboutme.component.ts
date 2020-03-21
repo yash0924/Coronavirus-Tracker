@@ -24,7 +24,7 @@ export class AboutmeComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
 
-   
+   this.service.test().subscribe(data => console.log(data));
   }
 
  
