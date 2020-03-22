@@ -1,8 +1,12 @@
 <h2>Coronavirus Cases and Deaths by Country</h2>
 <hr />
+<div class="row">
 <div class="col-sm-3" style="margin-left: 0 !important;">
  
   <input type="text" class="form-control" placeholder="Search By Country..." [(ngModel)]="searchString" />
+
+</div>
+
 </div>
 <hr />
 
@@ -34,7 +38,7 @@
     </thead>
     <tbody>
       <!-- https://github.com/VadimDez/ngx-order-pipe -->
-        <tr (click)="loadMapInfo(item.country)" style=" cursor: pointer;"  *ngFor="let item of  countriesDataC | orderBy: order:reverse | filter : 'country' : searchString; ">
+        <tr (click)="loadMapInfo(item.country)" style=" cursor: pointer;"  *ngFor="let item of  countriesDataCloned | orderBy: order:reverse | filter : 'country' : searchString; ">
           
           
           <td>

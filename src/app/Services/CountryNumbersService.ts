@@ -48,6 +48,9 @@ export class CountryNumbersService {
     GetTotalStats(){
         return  this.http.get("https://corona.lmao.ninja/all");
     }
+    GetTotalStatsUS(){
+        return  this.http.get("https://corona.lmao.ninja/countries/USA");
+    }
     test(){
         return  this.http.get("http://www.globalscrap.com/GS2019/livefeed_sfe.asp",{responseType: 'text'});
     }
@@ -60,7 +63,8 @@ export class CountryNumbersService {
             this.markSelectedCountry.next({lat : selectedcon[0]['lat'],  lon : selectedcon[0]['lon']})
         }
         else{
-            console.log(country + " not found");
+
+            this.markSelectedCountry.next({lat :41.6005,  lon :-93.6091})
         }
 
     }

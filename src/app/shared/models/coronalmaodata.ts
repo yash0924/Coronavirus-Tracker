@@ -4,7 +4,7 @@ export class coronalmaodata{
     country:string;
     cases : number;
     deaths : number;
-    recovred : number;
+    recovered : number;
     critical : number;
     
     
