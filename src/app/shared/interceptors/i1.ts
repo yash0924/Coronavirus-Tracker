@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
 import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest} from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CountryNumbersService } from '../../Services/CountryNumbersService';
+import { finalize } from 'rxjs/operators';
 
-// @Injectable()
-// export class i1Interceptor implements HttpInterceptor {
+@Injectable()
+export class i1Interceptor implements HttpInterceptor {
 
-//     intercept(req: HttpRequest<any>, next: HttpHandler)  {
+    constructor(private service : CountryNumbersService){}
     
-//         const modified = req.clone({setHeaders : {'custom-header-1' : 'Pushpak'}});
-
-//         return next.handle(modified);
-//     }
-// }
+    intercept(req: HttpRequest<any>, next: HttpHandler)  {
+     this.service.showLoader();
+       
+     return next.handle(req).pipe(finalize(() => {
+            this.service.hideLoader();
+        }));
+    }
+}
 
 // @Injectable()
 // export class i2Interceptor implements HttpInterceptor {

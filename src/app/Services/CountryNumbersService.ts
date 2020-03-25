@@ -2,7 +2,7 @@ import { countrydata } from '../shared/countrydata';
 import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Params } from '@angular/router';
-import { map, filter, first } from 'rxjs/operators'
+import { map, filter, first, delay } from 'rxjs/operators'
 import { Subject, forkJoin, Observable } from 'rxjs';
 import { formatDate } from '@angular/common';
 import { MarkerInfo } from '../shared/MarkerInfo';
@@ -29,6 +29,9 @@ export class CountryNumbersService {
     markersChanged = new Subject<countrymarkerdata>();
     markSelectedCountry = new Subject<{lat : number,lon : number}>();
 
+    showHideLoader = new Subject<boolean>();
+
+
     latestNews = new Subject<news>();
 
     countrySlug = new Subject<string[]>();
@@ -44,6 +47,14 @@ export class CountryNumbersService {
 
     countriesSlug : string[] = [];
 
+    showLoader(){
+
+            this.showHideLoader.next(true);
+    }
+    hideLoader(){
+
+        this.showHideLoader.next(false);
+    }
 
     GetTotalStats(){
         return  this.http.get("https://corona.lmao.ninja/all");
@@ -285,7 +296,10 @@ export class CountryNumbersService {
        //return this.http.get("https://newsapi.org/v2/top-headlines?q=coronavirus&country=us&country=uk&country=ch&country=in&sortBy=publishedAt&language=en&apiKey=0e283689abe54696987ae8a1f6537804", { headers : {'Access-Control-Allow-Origin' : '*', 'Access-Control-Allow-Headers' : '*'}});
 
     //   const url = "https://newsapi.org/v2/top-headlines?q=coronavirus&country=us&country=uk&country=ch&country=in&sortBy=publishedAt&language=en&apiKey=0e283689abe54696987ae8a1f6537804";
-    const url = "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=coronavirus";
+            const url = "https://api.cognitive.microsoft.com/bing/v7.0/news/search?q=coronavirus";
+
+    
+        //return this.http.get("http://localhost:43909/getnydata");
 
        return this.http.get(url, {headers : {'Ocp-Apim-Subscription-Key' : '9fc2b0698a444b7c9af64925d0447951'  }});
     }
