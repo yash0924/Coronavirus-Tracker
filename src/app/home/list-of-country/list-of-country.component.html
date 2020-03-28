@@ -24,13 +24,16 @@
           <div class="tablesorter-header-inner"> Total <i class="fa fa-sort" aria-hidden="true"></i></div>
         </th>
       
-        <th data-column="3" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;"[class.active]="order === 'tr'"       (click)="setOrder('tr')">
+        <th data-column="3" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;"[class.active]="order === 'recovered'"
+               (click)="setOrder('recovered')">
           <div class="tablesorter-header-inner">Deaths <i class="fa fa-sort" aria-hidden="true"></i> </div>
         </th>
-        <th data-column="5" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;" [class.active]="order === 'td'"       (click)="setOrder('td')">
+        <th data-column="5" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;" [class.active]="order === 'deaths'" 
+              (click)="setOrder('deaths')">
           <div class="tablesorter-header-inner">Recovered <i class="fa fa-sort" aria-hidden="true"></i> </div>
         </th>
-        <th data-column="6" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;" [class.active]="order === 'ta'"       (click)="setOrder('ta')">
+        <th data-column="6" class="tablesorter-header" tabindex="0" unselectable="on" style="user-select: none;" [class.active]="order === 'critical'" 
+              (click)="setOrder('critical')">
           <div class="tablesorter-header-inner">Critical <i class="fa fa-sort" aria-hidden="true"></i> </div>
         </th>
       
@@ -44,12 +47,12 @@
           <td>
            <div style="color: white;"><span style="color : rgb(68, 149, 255);" > {{item.country}}</span></div>
           </td>
-          <td>{{item.cases}}</td>
+          <td>{{+item.cases}}</td>
           
-          <td>{{item.deaths}}</td>
+          <td>{{+item.deaths}}</td>
           
-          <td>{{item.recovered}}</td>
-          <td>{{item.critical}}</td>
+          <td>{{+item.recovered}}</td>
+          <td>{{+item.critical}}</td>
          
         </tr>
        

@@ -25,6 +25,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { i1Interceptor } from './shared/interceptors/i1';
 import { LoaderComponent } from './shared/loader/loader.component';
+import { OrderByPipe } from './shared/order-by.pipe';
 
 
 
@@ -36,9 +37,9 @@ import { LoaderComponent } from './shared/loader/loader.component';
     GlobalMapComponent,
     HomeComponent,
     ListOfCountryComponent,
-    
     RecoveredNumberComponent,
     FilterpipePipe,
+    OrderByPipe,
     HowtostaysafeComponent,
     ImportantnewsComponent,
     DatasourceComponent,
