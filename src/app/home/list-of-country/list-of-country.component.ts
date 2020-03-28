@@ -18,7 +18,7 @@ import { coronalmaodata } from '../../shared/models/coronalmaodata';
 })
 export class ListOfCountryComponent implements OnInit {
 
-  countriesDataC: coronalmaodata[] = [];
+@Input()  countriesData: coronalmaodata[] = [];
   countriesDataCloned: coronalmaodata[] = [];
   order: string = 'cases';
   reverse: boolean = true;
@@ -35,13 +35,18 @@ export class ListOfCountryComponent implements OnInit {
   }
 
 ngOnInit() {
-    this.countryNumberService.calcForC().subscribe((data: any) => {
-      if (data) {
-        this.countriesDataC = data;
-        this.countriesDataCloned = data;
-        this.dropdownValues = data.map(s => s.country)
-      }
-    });
+ 
+       
+       this.countriesDataCloned = this.countriesData;
+       this.dropdownValues = this.countriesData.map(s => s.country)
+
+    // this.countryNumberService.calcForC().subscribe((data: any) => {
+    //   if (data) {
+    //     this.countriesDataC = data;
+    //     this.countriesDataCloned = data;
+    //     this.dropdownValues = data.map(s => s.country)
+    //   }
+    // });
   }
 
   
@@ -56,13 +61,13 @@ filterData(selectedCountry : string)
   if(selectedCountry !== "0")
   {
     this.countryNumberService.getLatLongBasedOnCountry(selectedCountry);
-    this.countriesDataCloned =  this.countriesDataC.filter(s => s.country === selectedCountry)
+    this.countriesDataCloned =  this.countriesData.filter(s => s.country === selectedCountry)
     
   }
   else
   {
     this.countryNumberService.getLatLongBasedOnCountry("All");
-    this.countriesDataCloned =  this.countriesDataC;
+    this.countriesDataCloned =  this.countriesData;
 
   }
   
