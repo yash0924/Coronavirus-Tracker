@@ -14,7 +14,6 @@ import { GlobalMapComponent } from './home/global-map/global-map.component';
 
 import { RecoveredNumberComponent } from './home/recovered-number/recovered-number.component';
 import { CountryNumbersService } from './Services/CountryNumbersService';
-import { OrderModule } from 'ngx-order-pipe';
 import { FormsModule } from '@angular/forms';
 import { FilterpipePipe } from './shared/filterpipe.pipe';
 import { HowtostaysafeComponent } from './howtostaysafe/howtostaysafe.component';
@@ -57,7 +56,6 @@ import { OrderByPipe } from './shared/order-by.pipe';
     }),
 
     AppRoutingModule,
-    OrderModule,
     FormsModule,
     LeafletModule.forRoot(),
     DeviceDetectorModule.forRoot(),

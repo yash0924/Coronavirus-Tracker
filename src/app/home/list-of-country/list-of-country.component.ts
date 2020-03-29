@@ -1,8 +1,6 @@
 import { Component, OnInit, Input, AfterContentInit, AfterViewInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CountryNumbersService } from '../../Services/CountryNumbersService';
-
-import { OrderPipe } from 'ngx-order-pipe';
 import { coronalmaodata } from '../../shared/models/coronalmaodata';
 
 @Component({
@@ -18,10 +16,10 @@ export class ListOfCountryComponent implements OnInit {
   reverse: boolean = true;
   dropdownValues : string[] = [];
   
-  constructor(private http: HttpClient, private countryNumberService: CountryNumbersService, private orderPipe: OrderPipe) {
+  constructor(private http: HttpClient, private countryNumberService: CountryNumbersService) {
   }
 
-  setOrder(value: string) {
+  setOrder(value: string) { 
     if (this.order === value) {
       this.reverse = !this.reverse;
     }
