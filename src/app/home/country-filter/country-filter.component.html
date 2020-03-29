@@ -1,0 +1,10 @@
+<div style="background-color: #404040 !important; color: white !important; margin-top: 5px;" >
+  <div class="col-sm-4 selectbox" style="margin-left: 0 !important;padding-top: 10px;">
+
+    <select class="form-control selectpicker" (change)="filerData($event.target.value)">
+      <option value="0">Global</option>
+      <option *ngFor="let summary of countryDropdownValues" value={{summary}}> {{summary}}</option>
+    </select>
+  </div>
+
+</div>

@@ -34,41 +34,41 @@
                 max-width: 16% !important;
             }
 
+       
 
-
-@media only screen and (max-width: 600px) {
+            @media only screen and (max-width: 600px) {
                 .mobileSelectBox  {
                  display: block;
                 }
-
+            
                 .desktopSelectBox  {
                     display: none;
                    }
- }
-
- @media only screen and (max-width: 812px) and (orientation : landscape)  {
-    .mobileSelectBox  {
-     display: block;
-    }
-    .mobileSelectBox >div> select{
-        width:  500px;
-    }
-    .toprow .col-sm-3{
-
+            }
+            
+            @media only screen and (max-width: 812px) and (orientation : landscape)  {
+            .mobileSelectBox  {
+            display: block;
+            }
+            .mobileSelectBox >div> select, .desktopSelectBox > select{
+            width:  500px;
+            }
+            .toprow .col-sm-3{
+            
             margin-right: 50px;
-    }
-
-    .desktopSelectBox  {
-        display: none;
-       }
-}
- @media only screen and (min-width: 813px)   {
-    .mobileSelectBox  {
-     display: none;
-    }
-
-    .desktopSelectBox  {
-        display: block;
-       }
-}
+            }
+            
+            .desktopSelectBox  {
+            display: none;
+            }
+            }
+            @media only screen and (min-width: 813px)   {
+            .mobileSelectBox  {
+            display: none;
+            }
+            
+            .desktopSelectBox  {
+            display: block;
+            }
+            }
             

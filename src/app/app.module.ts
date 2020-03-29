@@ -25,6 +25,8 @@ import { DeviceDetectorModule } from 'ngx-device-detector';
 import { i1Interceptor } from './shared/interceptors/i1';
 import { LoaderComponent } from './shared/loader/loader.component';
 import { OrderByPipe } from './shared/order-by.pipe';
+import { TotalNumbersComponent } from './home/total-numbers/total-numbers.component';
+import { CountryFilterComponent } from './home/country-filter/country-filter.component';
 
 
 
@@ -43,7 +45,9 @@ import { OrderByPipe } from './shared/order-by.pipe';
     ImportantnewsComponent,
     DatasourceComponent,
     AboutmeComponent,
-    LoaderComponent
+    LoaderComponent,
+    TotalNumbersComponent,
+    CountryFilterComponent
     
     
   ],

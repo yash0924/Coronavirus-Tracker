@@ -1,93 +1,25 @@
-
-
 <div class="container" style="background-color: #404040 !important; color: white !important;">
 
-  <div style="background-color: #404040 !important; color: white !important; margin-top: 5px;" class="mobileSelectBox">
-    <div class="col-sm-3 selectbox" style="margin-left: 0 !important;padding-top: 10px;">
- 
-      <select class="form-control selectpicker" (change)="filerData($event.target.value)">
-        <option value="0">Global</option>
-        <option *ngFor="let summary of dropdownValues" value={{summary}}>      {{summary}}</option>
-      </select>
+  <app-total-numbers [totalNumbers]="TotalNumbersArray"></app-total-numbers>
+  
+  <app-country-filter [countryDropdownValues] = "dropdownValues" [countriesData] = "countriesDataCloned" class="mobileSelectBox"
+  (countryTotalDataChanged)="countryFilterApplied($event)"></app-country-filter>
+
+  <div class="row">
+    <div style=" background-color: #404040;  margin-top: 1px; margin-bottom: 1px; " class="col-sm-12">
+      <app-global-map></app-global-map>
     </div>
-    
-  </div>
-  
-<div  class="row toprow"  style="background-color: #404040 !important; color: white !important; text-align: center;
- justify-content: center; align-content: flex-end;margin-bottom: 2px; margin-top: 2px; ">
-
- 
-    <div class="col-sm-6 text-center " >
-        <div class="row  justify-content-end">
-          <div class="col-sm-3 " >
-            <h2 class="NumberOfInfections" style="color:#1877F2;">{{ TotalConfirmed  | number}}</h2>
-            <h5>Infected</h5>
-          </div>
-          <div class="col-sm-3" >
-            <h2 class="deathsnumbers" style="color:#FB3938;">{{TotalDeaths  | number}}</h2>
-                          <h5>Deaths</h5>
-          </div>
-         
-        </div>
-                         
-      <!-- </div>
-      <div class="col-sm-3 text-center"> -->
-                         
-      </div>
-      <div class="col-sm-6 text-center">
-
-        <div class="row justify-content-begin" >
-         
-          <div class="col-sm-3">
-            <h2 class="recoverednumbers" style="color:#3AA969;">{{TotalRecovered | number}}</h2>
-            <h5>Recovered</h5>
-          </div>
-          <div class="col-sm-3">
-            <h2 class="UNRESOLVEDnumbers" style="color:yellow;">{{TotalActive | number}}</h2>
-            <h5>Unresolved</h5>
-          </div>
-
-
-                       
-      </div>
-      <!-- <div class="col-sm-3 text-center">  -->
-      
-        </div>
- 
-   
-   
+    <hr />
   </div>
 
-<div  class="row" >
+  <app-country-filter [countryDropdownValues] = "dropdownValues" [countriesData] = "countriesDataCloned" class="desktopSelectBox"
+  (countryTotalDataChanged)="countryFilterApplied($event)"></app-country-filter>
 
-
-
-<div style=" background-color: #404040;  margin-top: 1px; margin-bottom: 1px; " class="col-sm-12">
-<app-global-map></app-global-map>
-  </div>
-  <hr />
-
-  
-    <div class="col-sm-4 selectbox desktopSelectBox" >
- 
-      <select class="form-control selectpicker" (change)="filerData($event.target.value)">
-        <option value="0">Global</option>
-        <option *ngFor="let summary of dropdownValues" value={{summary}}>      {{summary}}</option>
-      </select>
-  
-    
-  </div>
-
-  
-</div>
-<hr style="color: black;" class="desktopSelectBox"/>
-<div  class="row" >
-  <div style="background-color: #404040; color: white; margin: 1px; " class="col-sm-12">
-
-    <app-list-of-country [countriesData] = "countriesDataC" *ngIf="countriesDataC.length > 0"></app-list-of-country>
-    
+  <!-- List Country Component -->
+  <hr style="color: black;" class="desktopSelectBox" />
+  <div class="row">
+    <div style="background-color: #404040; color: white; margin: 1px; " class="col-sm-12">
+      <app-list-of-country [countriesData]="countriesDataC" *ngIf="countriesDataC.length > 0"></app-list-of-country>
     </div>
-
-</div>
-  
+  </div>
 </div>

@@ -22,7 +22,9 @@ export class HomeComponent implements OnInit {
   TotalRecoveredT: number = 0;
   TotalActiveT: number = 0;
 
-  dropdownValues : string[] = [];
+  TotalNumbersArray: number[] = [];
+
+  dropdownValues: string[] = [];
   countriesDataC: coronalmaodata[] = [];
   countriesDataCloned: coronalmaodata[] = [];
   constructor(private service: CountryNumbersService) { }
@@ -37,14 +39,13 @@ export class HomeComponent implements OnInit {
         this.TotalRecovered = +data.recovered;
         this.TotalActive = this.TotalConfirmed - (this.TotalDeaths + this.TotalRecovered);
 
-        this.TotalConfirmedT = +data.cases;
-        this.TotalDeathsT = +data.deaths;
-        this.TotalRecoveredT = +data.recovered;
-        this.TotalActiveT = this.TotalConfirmed - (this.TotalDeaths + this.TotalRecovered);
+        this.TotalNumbersArray = [this.TotalConfirmed, this.TotalDeaths, this.TotalRecovered, this.TotalActive]
+
+       
       }
     });
 
-    
+
     this.service.calcForC().subscribe((data: any) => {
       if (data) {
         this.countriesDataC = data;
@@ -53,35 +54,12 @@ export class HomeComponent implements OnInit {
       }
     });
 
+    
 
-   
   }
 
-
-
-  filerData(selectedCountry : string ){
-   
-    if(selectedCountry !== "0")
-    {
-      
-      this.service.getLatLongBasedOnCountry(selectedCountry);
-
-    const data = this.countriesDataCloned.filter(s => s.country === selectedCountry)
-    this.TotalConfirmed = +data[0].cases;
-        this.TotalDeaths = +data[0].deaths;
-        this.TotalRecovered = +data[0].recovered;
-        this.TotalActive = this.TotalConfirmed - (this.TotalDeaths + this.TotalRecovered);
-    }
-    else{
-      this.TotalConfirmed = this.TotalConfirmedT;
-      this.TotalDeaths = this.TotalDeathsT;
-      this.TotalRecovered =this.TotalRecoveredT;
-      this.TotalActive = this.TotalConfirmedT - (this.TotalDeathsT + this.TotalRecoveredT);
-
-    }
-        
-  
-  
+  countryFilterApplied(a : number[]){
+    console.log(a);
+    this.TotalNumbersArray = [a[0], a[1], a[2], a[3]]
   }
-
 }
