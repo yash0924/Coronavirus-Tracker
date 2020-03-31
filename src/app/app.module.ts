@@ -27,6 +27,7 @@ import { LoaderComponent } from './shared/loader/loader.component';
 import { OrderByPipe } from './shared/order-by.pipe';
 import { TotalNumbersComponent } from './home/total-numbers/total-numbers.component';
 import { CountryFilterComponent } from './home/country-filter/country-filter.component';
+import { MarkerDirective } from './shared/marker.directive';
 
 
 
@@ -47,7 +48,8 @@ import { CountryFilterComponent } from './home/country-filter/country-filter.com
     AboutmeComponent,
     LoaderComponent,
     TotalNumbersComponent,
-    CountryFilterComponent
+    CountryFilterComponent,
+    MarkerDirective
     
     
   ],
