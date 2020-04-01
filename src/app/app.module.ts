@@ -56,10 +56,6 @@ import { MarkerDirective } from './shared/marker.directive';
   imports: [
     BrowserModule,
     HttpClientModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyBcd6J-qAfnmGjqBrC5poqV-8fa7LerguQ',
-      libraries: ['places'] 
-    }),
 
     AppRoutingModule,
     FormsModule,
